@@ -10,5 +10,7 @@ class WorldVisualizer:
         print(f'Day Number: {self.world.day}')
 
     def display(self):
+        print("######")
         self.display_time_info()
         self.display_humans()
+        print("######")

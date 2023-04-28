@@ -1,5 +1,6 @@
 from models.action.idle import ActionIdle
 from service.human import HumanService
+from service.human_visualizer import HumanVisualizer
 
 
 class Human:
@@ -10,6 +11,11 @@ class Human:
         self.stomach_level = 25
         self.possible_action = [ActionIdle]
         self.dead = False
+
+        self.visualizer = HumanVisualizer(self)
+
+    def __str__(self):
+        return self.name
 
     def death_checker(self):
         if self.stomach_level < 0:
@@ -24,3 +30,4 @@ class Human:
         self.death_checker()
         best_action = self.find_best_action()
         best_action.make()
+        self.visualizer.display()
