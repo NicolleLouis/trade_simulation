@@ -1,5 +1,6 @@
 from models.action.eat import Eat
 from models.action.idle import Idle
+from models.object.fruit import Fruit
 from service.human import HumanService
 from service.human_visualizer import HumanVisualizer
 
@@ -16,7 +17,7 @@ class Human:
         self.stomach_level = 10
         self.possible_action = [Idle, Eat]
 
-        self.inventory = []
+        self.inventory = [Fruit()]
 
         self.visualizer = HumanVisualizer(self)
 

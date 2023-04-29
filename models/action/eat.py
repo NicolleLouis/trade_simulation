@@ -27,7 +27,7 @@ class Eat(BaseAction):
         self.describe()
 
     def describe(self):
-        food_eaten_description = ", ".join(self.food_eaten)
+        food_eaten_description = ", ".join([str(food) for food in self.food_eaten])
         print(f"{self.human} has eaten: {food_eaten_description}")
         print(f"He went from {self.initial_stomach_level} to {self.human.stomach_level}")
         if self.has_eaten_suboptimally:
@@ -70,3 +70,4 @@ class Eat(BaseAction):
             key=lambda food: food.FOOD_RETURN
         )
         self.eat(smallest_food)
+        self.has_eaten_suboptimally = True
