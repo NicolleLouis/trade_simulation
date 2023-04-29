@@ -4,9 +4,10 @@ from models.object.base_object import BaseObject
 
 class Eat(BaseAction):
     NAME = "EATING"
+    RANDOM = False
 
-    def __init__(self, human):
-        super().__init__(human)
+    def __init__(self, job):
+        super().__init__(job)
         self.owned_food = None
         self.initial_stomach_level = self.human.stomach_level
         self.food_eaten = []
@@ -16,6 +17,7 @@ class Eat(BaseAction):
 
     def make(self):
         self.detect_food()
+        self.clean()
         self.detect_maximum_optimal_food()
 
         self.eat_until_full()
@@ -28,6 +30,10 @@ class Eat(BaseAction):
         print(f"He went from {self.initial_stomach_level} to {self.human.stomach_level}")
         if self.has_eaten_suboptimally:
             print("This consumption was suboptimal")
+
+    def clean(self):
+        self.food_eaten = []
+        self.initial_stomach_level = self.human.stomach_level
 
     def detect_food(self):
         self.owned_food = list(
@@ -67,3 +73,6 @@ class Eat(BaseAction):
         )
         self.eat(smallest_food)
         self.has_eaten_suboptimally = True
+
+    def expected_happiness(self):
+        return 0

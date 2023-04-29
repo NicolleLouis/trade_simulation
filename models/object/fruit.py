@@ -1,9 +1,7 @@
-from models.object.base_object import BaseObject
+from models.object.edible import BaseEdible
 
 
-class Fruit(BaseObject):
-    NAME = "Blueberry"
-    COOKABLE = False
+class Fruit(BaseEdible):
+    NAME = "Fruit"
     EDIBLE = True
     FOOD_RETURN = 10
-    ESTIMATED_VALUE = 100

@@ -1,13 +1,8 @@
-class BaseObject:
-    NAME = None
-    COOKABLE = False
-    EDIBLE = False
-    FOOD_RETURN = 0
-    ESTIMATED_VALUE = 0
+from abc import ABC, abstractmethod
 
-    def __init__(self):
-        self.cookable = self.COOKABLE
-        self.edible = self.EDIBLE
+
+class BaseObject(ABC):
+    NAME = None
 
     def __str__(self):
         if self.NAME is None:
@@ -15,9 +10,6 @@ class BaseObject:
 
         return self.NAME
 
-    def cook(self):
-        if not self.COOKABLE:
-            raise f"{self} is not cookable"
-
-        self.edible = True
-        self.cookable = False
+    @abstractmethod
+    def utility(self, human):
+        raise NotImplementedError

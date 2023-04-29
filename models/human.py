@@ -1,45 +1,50 @@
-from models.action.eat import Eat
-from models.action.idle import Idle
-from models.object.fruit import Fruit
+from models.job.basic import Basic
 from service.human import HumanService
 from service.human_visualizer import HumanVisualizer
 
 
 class Human:
     MAXIMUM_STOMACH_LEVEL = 30
+    BASE_JOB = [Basic]
 
     def __init__(
             self,
             money=10,
-            stomach_level=1,
+            stomach_level=10,
             happiness=0,
-            possible_action=[Idle, Eat],
-            inventory=[Fruit()],
+            inventory=None,
+            jobs=None,
             display=False
     ):
+        if jobs is None:
+            jobs = []
+        if inventory is None:
+            inventory = []
+
         self.name = HumanService.random_name()
         self.age = 0
         self.dead = False
         self.last_action = None
+        self.display = display
 
         self.money = money
         self.stomach_level = stomach_level
         self.happiness = happiness
-        self.possible_action = possible_action
-
+        self.jobs = []
         self.inventory = inventory
 
-        self.display = display
         self.visualizer = HumanVisualizer(self)
+
+        self.update_jobs(jobs)
 
     def run_day(self):
         self.happiness = 0
         self.age += 1
         self.stomach_level -= 1
 
-        best_action = self.find_best_action()(self)
+        best_action = self.find_best_action()
         self.last_action = best_action
-        best_action.make()
+        best_action.run()
 
         if self.should_die():
             self.dead = True
@@ -47,18 +52,23 @@ class Human:
         if self.display:
             self.visualizer.display()
 
+    def update_jobs(self, jobs):
+        for job in self.BASE_JOB:
+            self.jobs.append(job(self))
+        for job in jobs:
+            self.jobs.append(job(self))
+
+    def __str__(self):
+        return self.name
+
     def compute_happiness(self):
         if self.should_die():
             self.happiness = -100
             return
 
-        self.happiness += 10 * self.stomach_level
+        self.happiness = 0
         self.happiness += self.money
-        for item in self.inventory:
-            self.happiness += item.ESTIMATED_VALUE
-
-    def __str__(self):
-        return self.name
+        self.happiness += 10*self.stomach_level
 
     def should_die(self):
         if self.stomach_level < 0:
@@ -66,23 +76,31 @@ class Human:
         return False
 
     def find_best_action(self):
-        return max(
-            self.possible_action,
-            key=lambda action: self.compute_action_happiness(action)
-        )
+        best_action = None
+        best_action_happiness = None
+        for job in self.jobs:
+            for action in job.actions:
+                happiness = self.compute_action_happiness(action.__class__, job)
+                if best_action_happiness is None or happiness > best_action_happiness:
+                    best_action = action
+                    best_action_happiness = happiness
+        return best_action
 
-    def compute_action_happiness(self, action):
-        copy = self.copy()
-        action(copy).run()
-        copy.compute_happiness()
-        return copy.happiness
+    def compute_action_happiness(self, action, job):
+        human_copy = self.copy()
+        job_copy = job.copy(human_copy)
+        happiness = action(job_copy).expected_happiness()
+        if not action.RANDOM:
+            action(job_copy).run()
+        human_copy.compute_happiness()
+        happiness += human_copy.happiness
+        return happiness
 
     def copy(self):
         return Human(
             money=self.money,
             stomach_level=self.stomach_level,
             happiness=self.happiness,
-            possible_action=self.possible_action.copy(),
             inventory=self.inventory.copy()
         )
 

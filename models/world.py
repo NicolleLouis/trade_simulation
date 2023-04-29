@@ -2,8 +2,9 @@ from service.world_visualizer import WorldVisualizer
 
 
 class World:
-    def __init__(self):
+    def __init__(self, display=False):
         self.day = 0
+        self.display = display
         self.humans = []
         self.dead_humans = []
         self.visualizer = WorldVisualizer(self)
@@ -23,7 +24,9 @@ class World:
         ))
 
     def run_day(self):
-        self.visualizer.display()
+        if self.display:
+            self.visualizer.display()
+
         for human in self.humans:
             human.run_day()
         self.update_dead()
