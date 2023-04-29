@@ -12,8 +12,15 @@ class World:
         self.humans.append(human)
 
     def update_dead(self):
-        raise NotImplementedError
-
+        new_dead = filter(
+            lambda human: human.dead,
+            self.humans
+        )
+        self.dead_humans.extend(new_dead)
+        self.humans = list(filter(
+            lambda human: not human.dead,
+            self.humans,
+        ))
 
     def run_day(self):
         self.visualizer.display()
