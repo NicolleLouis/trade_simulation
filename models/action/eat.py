@@ -3,6 +3,7 @@ from models.object.base_object import BaseObject
 
 
 class Eat(BaseAction):
+    NAME = "EATING"
 
     def __init__(self, human):
         super().__init__(human)
@@ -13,9 +14,6 @@ class Eat(BaseAction):
         self.has_eaten = False
         self.has_eaten_suboptimally = False
 
-    def __str__(self):
-        return "Eating"
-
     def make(self):
         self.detect_food()
         self.detect_maximum_optimal_food()
@@ -23,8 +21,6 @@ class Eat(BaseAction):
         self.eat_until_full()
         if not self.has_eaten:
             self.suboptimal_eating()
-
-        self.describe()
 
     def describe(self):
         food_eaten_description = ", ".join([str(food) for food in self.food_eaten])
@@ -41,7 +37,7 @@ class Eat(BaseAction):
             )
         )
         if len(self.owned_food) == 0:
-            raise f"No edible food owned by {self.human}"
+            raise BaseException(f"No edible food owned by {self.human}")
 
     def detect_maximum_optimal_food(self):
         self.maximum_optimal_food = self.human.MAXIMUM_STOMACH_LEVEL - self.human.stomach_level

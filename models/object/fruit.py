@@ -6,3 +6,4 @@ class Fruit(BaseObject):
     COOKABLE = False
     EDIBLE = True
     FOOD_RETURN = 10
+    ESTIMATED_VALUE = 100

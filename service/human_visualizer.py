@@ -3,4 +3,7 @@ class HumanVisualizer:
         self.human = human
 
     def display(self):
-        print(f'{self.human.name}: {self.human.stomach_level} food left - {self.human.age} old')
+        print(f'{self.human.name}: ')
+        print(f'Last action: {str(self.human.last_action)}')
+        print(f'Stomach level: {self.human.stomach_level}')
+        print(f'Age: {self.human.age}')

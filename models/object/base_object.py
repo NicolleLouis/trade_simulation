@@ -3,6 +3,7 @@ class BaseObject:
     COOKABLE = False
     EDIBLE = False
     FOOD_RETURN = 0
+    ESTIMATED_VALUE = 0
 
     def __init__(self):
         self.cookable = self.COOKABLE
