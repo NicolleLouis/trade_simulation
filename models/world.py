@@ -1,3 +1,4 @@
+from models.trading.market import Market
 from service.visualizer.world_visualizer import WorldVisualizer
 
 
@@ -5,6 +6,7 @@ class World:
     def __init__(self, display_level=0):
         self.day = 0
         self.humans = []
+        self.market = Market(self)
         self.dead_humans = []
         self.visualizer = WorldVisualizer(self, display_level)
 

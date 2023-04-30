@@ -9,6 +9,7 @@ class Gather(BaseAction):
     RANDOM = True
     OBJECT = Fruit
     EXPERIENCE_GAIN = 1
+    BASE_PROBABILITY = 8
 
     def __init__(self, job):
         super().__init__(job)
@@ -22,7 +23,7 @@ class Gather(BaseAction):
             self.get_fruit()
 
     def probability(self):
-        return (8 + self.job.level_impact())/100
+        return (self.BASE_PROBABILITY + self.job.level_impact())/100
 
     def get_fruit(self):
         self.fruit_found = True

@@ -1,15 +1,14 @@
 from models.job.basic import Basic
 from service.human import HumanService
+from service.market.market_service import MarketService
 from service.visualizer.human_visualizer import HumanVisualizer
 
 
 class Human:
-    MAXIMUM_STOMACH_LEVEL = 30
-    BASE_JOB = [Basic]
-
     def __init__(
             self,
-            money=10,
+            world,
+            money=100,
             stomach_level=30,
             happiness=0,
             inventory=None,
@@ -21,10 +20,11 @@ class Human:
         if inventory is None:
             inventory = []
 
+        self.world = world
+
         self.name = HumanService.random_name()
         self.age = 0
         self.dead = False
-        self.last_action = None
 
         self.money = money
         self.stomach_level = stomach_level
@@ -32,23 +32,42 @@ class Human:
         self.jobs = []
         self.inventory = inventory
 
+        self.market_service = MarketService(
+            market=self.world.market,
+            human=self,
+        )
+
         self.display_level = display_level
+        self.last_action = None
         self.visualizer = HumanVisualizer(self)
 
         self.update_jobs(jobs)
+    MAXIMUM_STOMACH_LEVEL = 30
+
+    BASE_JOB = [Basic]
 
     def run_day(self):
+        # Aging
         self.happiness = 0
         self.age += 1
         self.stomach_level -= 1
 
+        # Market morning
+        self.market_service.buy()
+
+        # Active Action
         best_action = self.find_best_action()
         self.last_action = best_action
         best_action.run()
 
+        # Market Evening
+        self.market_service.sell()
+
+        # Death
         if self.should_die():
             self.dead = True
 
+        # Display
         self.visualizer.display()
 
     def update_jobs(self, jobs):
@@ -61,10 +80,6 @@ class Human:
         return self.name
 
     def compute_happiness(self):
-        if self.should_die():
-            self.happiness = -100
-            return
-
         self.happiness = 0
         self.happiness += self.money
         self.happiness += 10*self.stomach_level
@@ -93,8 +108,11 @@ class Human:
         happiness = action(job_copy).expected_happiness()
         if not action.RANDOM:
             action(job_copy).run()
+        if human_copy.should_die():
+            return -100
         human_copy.compute_happiness()
         happiness += human_copy.happiness
+
         return happiness
 
     def copy(self):
@@ -102,7 +120,8 @@ class Human:
             money=self.money,
             stomach_level=self.stomach_level,
             happiness=self.happiness,
-            inventory=self.inventory.copy()
+            inventory=self.inventory.copy(),
+            world=self.world
         )
 
     def gain_item(self, item):
