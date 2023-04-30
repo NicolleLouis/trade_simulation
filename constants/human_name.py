@@ -6,13 +6,14 @@ FIRST_NAMES = [
     "Gautier",
     "Eléonore",
     "Maxime",
-    "Amandime",
+    "Amandine",
     "Guillaume",
     "Edouard",
     "Charles",
     "Victoire",
     "Ellana",
     "Paul",
+    "Duncan",
 ]
 
 LAST_NAMES = [
@@ -26,4 +27,6 @@ LAST_NAMES = [
     "Atreides",
     "Caldin",
     "Houriez",
+    "Christophe",
+    "Blanchet",
 ]

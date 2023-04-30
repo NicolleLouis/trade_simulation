@@ -17,23 +17,27 @@ class Eat(BaseAction):
 
     def make(self):
         self.detect_food()
-        self.clean()
         self.detect_maximum_optimal_food()
 
         self.eat_until_full()
         if not self.has_eaten:
             self.suboptimal_eating()
 
-    def describe(self):
+    def describe_lite(self):
+        stomach_gain = self.human.stomach_level - self.initial_stomach_level
+        print(f'{len(self.food_eaten)} for {stomach_gain}')
+
+    def describe_full(self):
         food_eaten_description = ", ".join([str(food) for food in self.food_eaten])
-        print(f"{self.human} has eaten: {food_eaten_description}")
-        print(f"He went from {self.initial_stomach_level} to {self.human.stomach_level}")
+        print(f"Meal list: {food_eaten_description}")
+        print(f"Food level went from {self.initial_stomach_level} to {self.human.stomach_level}")
         if self.has_eaten_suboptimally:
             print("This consumption was suboptimal")
 
-    def clean(self):
+    def clean_data(self):
         self.food_eaten = []
         self.initial_stomach_level = self.human.stomach_level
+        self.has_eaten = False
 
     def detect_food(self):
         self.owned_food = list(

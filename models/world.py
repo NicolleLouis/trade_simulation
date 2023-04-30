@@ -1,13 +1,12 @@
-from service.world_visualizer import WorldVisualizer
+from service.visualizer.world_visualizer import WorldVisualizer
 
 
 class World:
-    def __init__(self, display=False):
+    def __init__(self, display_level=0):
         self.day = 0
-        self.display = display
         self.humans = []
         self.dead_humans = []
-        self.visualizer = WorldVisualizer(self)
+        self.visualizer = WorldVisualizer(self, display_level)
 
     def add_human(self, human):
         self.humans.append(human)
@@ -24,8 +23,8 @@ class World:
         ))
 
     def run_day(self):
-        if self.display:
-            self.visualizer.display()
+        self.visualizer.display()
+        self.day += 1
 
         for human in self.humans:
             human.run_day()

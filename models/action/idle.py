@@ -8,7 +8,13 @@ class Idle(BaseAction):
     def make(self):
         pass
 
-    def describe(self):
+    def clean_data(self):
+        pass
+
+    def describe_lite(self):
+        pass
+
+    def describe_full(self):
         print(f"{str(self.job.human)} is peace chilling")
 
     def expected_happiness(self):

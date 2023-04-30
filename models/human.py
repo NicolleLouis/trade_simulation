@@ -1,6 +1,6 @@
 from models.job.basic import Basic
 from service.human import HumanService
-from service.human_visualizer import HumanVisualizer
+from service.visualizer.human_visualizer import HumanVisualizer
 
 
 class Human:
@@ -10,11 +10,11 @@ class Human:
     def __init__(
             self,
             money=10,
-            stomach_level=10,
+            stomach_level=30,
             happiness=0,
             inventory=None,
             jobs=None,
-            display=False
+            display_level=0
     ):
         if jobs is None:
             jobs = []
@@ -25,7 +25,6 @@ class Human:
         self.age = 0
         self.dead = False
         self.last_action = None
-        self.display = display
 
         self.money = money
         self.stomach_level = stomach_level
@@ -33,6 +32,7 @@ class Human:
         self.jobs = []
         self.inventory = inventory
 
+        self.display_level = display_level
         self.visualizer = HumanVisualizer(self)
 
         self.update_jobs(jobs)
@@ -49,8 +49,7 @@ class Human:
         if self.should_die():
             self.dead = True
 
-        if self.display:
-            self.visualizer.display()
+        self.visualizer.display()
 
     def update_jobs(self, jobs):
         for job in self.BASE_JOB:
@@ -69,9 +68,11 @@ class Human:
         self.happiness = 0
         self.happiness += self.money
         self.happiness += 10*self.stomach_level
+        for item in self.inventory:
+            self.happiness += item.utility(self)
 
     def should_die(self):
-        if self.stomach_level < 0:
+        if self.stomach_level <= 0:
             return True
         return False
 

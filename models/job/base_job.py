@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from math import floor, log10
+from math import floor, log2
 
 
 class BaseJob(ABC):
@@ -31,13 +31,17 @@ class BaseJob(ABC):
 
     def update_level(self):
         self.level = min(
-            floor(log10(self.experience)),
+            floor(log2(self.experience)),
             10
         )
 
     @abstractmethod
     def level_impact(self):
         raise NotImplementedError
+
+    def gain_experience(self, experience):
+        self.experience += experience
+        self.update_level()
 
     def compute_action(self):
         for action in self.ACTIONS:
