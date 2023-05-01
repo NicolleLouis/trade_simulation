@@ -32,11 +32,13 @@ class DataLogger(ABC):
         return f"graph/{self.FILE_ADDRESS}.png"
 
     def display(self):
+        self.hook_post_computation()
         PlotService(
             graph_data=self.graph_data
         ).show()
 
     def save(self):
+        self.hook_post_computation()
         PlotService(
             graph_data=self.graph_data
         ).save(self.file_address())
@@ -51,3 +53,6 @@ class DataLogger(ABC):
     @abstractmethod
     def fetch_data(self):
         raise NotImplementedError
+
+    def hook_post_computation(self):
+        pass

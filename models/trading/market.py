@@ -1,4 +1,5 @@
 from models.trading.trade import Trade
+from service.market.tracker import MarketTrackerService
 from service.visualizer.market_visualizer import MarketVisualizer
 
 
@@ -11,6 +12,7 @@ class Market:
         # }
         self.offer_book = {}
         self.trade_book = {}
+        self.tracker = MarketTrackerService(self)
 
         self.visualizer = MarketVisualizer(self)
 

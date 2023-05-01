@@ -1,12 +1,14 @@
 from models.human import Human
 from models.job.gatherer import Gatherer
 from models.world import World
+from service.graph.library.human_money import HumanMoney
+from service.graph.library.market_price import MarketPrice
 from service.graph.library.world_population import WorldPopulation
 
 
 class Game:
     WORLD_DISPLAY_LEVEL = 0
-    DAY_NUMBER = 1000
+    DAY_NUMBER = 300
     DISPLAY_GRAPH = False
 
     def __init__(self):
@@ -19,11 +21,17 @@ class Game:
         self.world.visualizer.display(2)
         self.world.market.visualizer.display(2)
 
-    def display_graph(self):
-        for graph in self.graphs:
-            if self.DISPLAY_GRAPH:
-                graph.display()
-            graph.save()
+    def add_graphs(self):
+        self.add_graph(WorldPopulation(self.world))
+        self.add_graph(MarketPrice(self.world))
+        self.add_graph(
+            HumanMoney(
+                self.world,
+                hide_dead=True,
+                only_richest=2,
+                only_poorest=0,
+            )
+        )
 
     def add_humans(self):
         for _ in range(25):
@@ -33,6 +41,12 @@ class Game:
                     world=self.world
                 )
             )
+
+    def display_graph(self):
+        for graph in self.graphs:
+            if self.DISPLAY_GRAPH:
+                graph.display()
+            graph.save()
 
     def run(self):
         for _ in range(self.DAY_NUMBER):
@@ -47,6 +61,3 @@ class Game:
 
     def add_graph(self, data_logger):
         self.graphs.append(data_logger)
-
-    def add_graphs(self):
-        self.add_graph(WorldPopulation(self.world))

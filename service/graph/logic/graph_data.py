@@ -15,3 +15,6 @@ class GraphData:
         if label not in self.dataset:
             self.dataset[label] = PlotData(label)
         self.dataset[label].add_point(x, y)
+
+    def remove_plot_data(self, label):
+        self.dataset.pop(label, None)
