@@ -1,5 +1,5 @@
-from models.action.base_action import BaseAction
-from models.object.base_object import BaseObject
+from models.action.base import BaseAction
+from models.object.base import BaseObject
 
 
 class Eat(BaseAction):

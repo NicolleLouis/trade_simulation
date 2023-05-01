@@ -1,7 +1,7 @@
 from abc import ABC
 from math import inf
 
-from models.object.base_object import BaseObject
+from models.object.base import BaseObject
 
 
 class BaseEdible(BaseObject, ABC):

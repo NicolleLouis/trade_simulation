@@ -1,12 +1,5 @@
-from models.human import Human
-from models.job.gatherer import Gatherer
-from models.world import World
+from models.game import Game
 
-world = World(display_level=1)
-world.add_human(Human(display_level=0, jobs=[Gatherer], world=world))
+game = Game()
 
-for _ in range(9):
-    world.add_human(Human(jobs=[Gatherer], world=world))
-
-for _ in range(100):
-    world.run_day()
+game.run()

@@ -4,6 +4,7 @@ from service.visualizer.world_visualizer import WorldVisualizer
 
 class World:
     def __init__(self, display_level=0):
+        self.display_level = display_level
         self.day = 0
         self.humans = []
         self.market = Market(self)

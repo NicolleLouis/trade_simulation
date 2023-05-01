@@ -1,4 +1,5 @@
 from models.trading.trade import Trade
+from service.visualizer.market_visualizer import MarketVisualizer
 
 
 class Market:
@@ -10,6 +11,8 @@ class Market:
         # }
         self.offer_book = {}
         self.trade_book = {}
+
+        self.visualizer = MarketVisualizer(self)
 
     def trade(self, offer, buyer):
         if not self.is_trade_valid(offer, buyer):

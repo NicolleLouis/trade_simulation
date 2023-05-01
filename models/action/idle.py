@@ -1,4 +1,4 @@
-from models.action.base_action import BaseAction
+from models.action.base import BaseAction
 
 
 class Idle(BaseAction):

@@ -1,6 +1,6 @@
 from models.job.basic import Basic
 from service.human import HumanService
-from service.market.market_service import MarketService
+from service.market.market import MarketService
 from service.visualizer.human_visualizer import HumanVisualizer
 
 
@@ -8,7 +8,7 @@ class Human:
     def __init__(
             self,
             world,
-            money=100,
+            money=300,
             stomach_level=30,
             happiness=0,
             inventory=None,

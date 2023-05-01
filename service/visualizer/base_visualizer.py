@@ -11,8 +11,8 @@ class BaseVisualizer(ABC):
     def __init__(self, display_level=DISPLAY_LEVEL):
         self.display_level = display_level
 
-    def config(self):
-        match self.display_level:
+    def config(self, display_level):
+        match display_level:
             case 0:
                 return None
             case 1:
@@ -20,8 +20,11 @@ class BaseVisualizer(ABC):
             case 2:
                 return self.config_full()
 
-    def display(self):
-        config = self.config()
+    def display(self, display_level=None):
+        if display_level is None:
+            display_level = self.display_level
+
+        config = self.config(display_level)
         if config is None:
             return
 

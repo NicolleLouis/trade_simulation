@@ -1,6 +1,6 @@
 import random
 
-from models.action.base_action import BaseAction
+from models.action.base import BaseAction
 from models.object.fruit import Fruit
 
 

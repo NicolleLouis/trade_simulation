@@ -1,5 +1,5 @@
-from service.market.market_buyer import MarketBuyerService
-from service.market.market_seller import MarketSellerService
+from service.market.buyer import MarketBuyerService
+from service.market.seller import MarketSellerService
 
 
 class MarketService:

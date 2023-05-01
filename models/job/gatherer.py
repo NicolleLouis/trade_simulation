@@ -1,5 +1,5 @@
 from models.action.gather import Gather
-from models.job.base_job import BaseJob
+from models.job.base import BaseJob
 
 
 class Gatherer(BaseJob):

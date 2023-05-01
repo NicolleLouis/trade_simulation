@@ -1,6 +1,6 @@
 from models.action.eat import Eat
 from models.action.idle import Idle
-from models.job.base_job import BaseJob
+from models.job.base import BaseJob
 
 
 class Basic(BaseJob):
