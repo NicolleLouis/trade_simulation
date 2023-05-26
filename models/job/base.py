@@ -35,9 +35,8 @@ class BaseJob(ABC):
             10
         )
 
-    @abstractmethod
     def level_impact(self):
-        raise NotImplementedError
+        return self.level
 
     def gain_experience(self, experience):
         self.experience += experience

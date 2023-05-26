@@ -1,32 +1,28 @@
 import random
 
 from models.action.base import BaseAction
-from models.object.fruit import Fruit
 
 
-class Gather(BaseAction):
-    NAME = "GATHER"
-    RANDOM = True
-    OBJECT = Fruit
-    EXPERIENCE_GAIN = 1
-    BASE_PROBABILITY = 8
+class BaseCreateObjectAction(BaseAction):
+    OBJECT = None
+    BASE_PROBABILITY = None
 
     def __init__(self, job):
         super().__init__(job)
-        self.fruit_found = False
+        self.object_created = False
 
     def clean_data(self):
-        self.fruit_found = False
+        self.object_created = False
 
     def make(self):
         if random.random() <= self.probability():
-            self.get_fruit()
+            self.get_object()
 
     def probability(self):
         return (self.BASE_PROBABILITY + self.job.level_impact())/100
 
-    def get_fruit(self):
-        self.fruit_found = True
+    def get_object(self):
+        self.object_created = True
         self.human.gain_item(self.OBJECT())
         self.improve_job()
 
@@ -34,12 +30,12 @@ class Gather(BaseAction):
         return self.probability() * self.OBJECT().utility(self.human)
 
     def describe_lite(self):
-        if self.fruit_found:
-            print("Found a fruit")
+        if self.object_created:
+            print(f"Created {str(self.OBJECT())}")
 
     def describe_full(self):
-        if not self.fruit_found:
-            print("Found nothing")
+        if not self.object_created:
+            print("Nothing created")
             return
 
-        print(f"Fruit Found, proba was: {self.probability()}")
+        print(f"Object created, probability was: {self.probability()}")

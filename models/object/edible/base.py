@@ -9,10 +9,13 @@ class BaseEdible(BaseObject, ABC):
     FOOD_RETURN = 0
 
     def __init__(self):
+        super().__init__()
+
         self.edible = self.EDIBLE
         self.food_return = self.FOOD_RETURN
 
     # 10 utility per consumable food + 5 utility per non-consumable food
+    # Infinite value if the human is starving
     def utility(self, human):
         if human.stomach_level == 0:
             return inf

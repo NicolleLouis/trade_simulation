@@ -14,6 +14,10 @@ FIRST_NAMES = [
     "Ellana",
     "Paul",
     "Duncan",
+    "Vincent",
+    "Lucien",
+    "Catherine",
+    "Melusine",
 ]
 
 LAST_NAMES = [
@@ -29,4 +33,7 @@ LAST_NAMES = [
     "Houriez",
     "Christophe",
     "Blanchet",
+    "Hamilton",
+    "La Fayette",
+    "Macron",
 ]

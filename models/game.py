@@ -28,8 +28,8 @@ class Game:
             HumanMoney(
                 self.world,
                 hide_dead=True,
-                only_richest=2,
-                only_poorest=0,
+                only_richest=None,
+                only_poorest=2,
             )
         )
 
