@@ -1,5 +1,6 @@
 from models.human import Human
-from models.job.gatherer import Gatherer
+from models.job.chef import Chef
+from models.job.fisherman import Fisherman
 from models.world import World
 from service.graph.library.human_money import HumanMoney
 from service.graph.library.market_price import MarketPrice
@@ -28,19 +29,23 @@ class Game:
             HumanMoney(
                 self.world,
                 hide_dead=True,
-                only_richest=None,
-                only_poorest=2,
+                only_richest=2,
+                only_poorest=0,
             )
         )
 
     def add_humans(self):
         for _ in range(25):
-            self.world.add_human(
-                Human(
-                    jobs=[Gatherer],
-                    world=self.world
-                )
+            self.add_human([Fisherman])
+            self.add_human([Chef])
+
+    def add_human(self, jobs):
+        self.world.add_human(
+            Human(
+                jobs=jobs,
+                world=self.world
             )
+        )
 
     def display_graph(self):
         for graph in self.graphs:

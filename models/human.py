@@ -76,6 +76,17 @@ class Human:
         for job in jobs:
             self.jobs.append(job(self))
 
+    def add_job(self, job):
+        if len(
+            list(
+                filter(
+                    lambda known_job: known_job.__class__ == job.__class__,
+                    self.jobs
+                )
+            )
+        ) == 0:
+            self.jobs.append(job)
+
     def __str__(self):
         return self.name
 
@@ -84,7 +95,8 @@ class Human:
         self.happiness += self.money
         self.happiness += 10*self.stomach_level
         for item in self.inventory:
-            self.happiness += item.utility(self)
+            if item.utility(self) is not None:
+                self.happiness += item.utility(self)
 
     def should_die(self):
         if self.stomach_level <= 0:

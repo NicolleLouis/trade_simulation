@@ -5,6 +5,7 @@ class BaseAction(ABC):
     NAME = None
     RANDOM = None
     EXPERIENCE_GAIN = 1
+    OBJECT = None
 
     def __init__(self, job):
         self.job = job

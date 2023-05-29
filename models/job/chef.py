@@ -1,3 +1,4 @@
+from models.action.cook import Cook
 from models.job.base import BaseJob
 
 
