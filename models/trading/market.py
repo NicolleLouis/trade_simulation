@@ -23,7 +23,7 @@ class Market:
         self.remove_from_offer_book(offer, buyer)
         self.transfer_item(offer, buyer)
         self.transfer_money(offer, buyer)
-        self.add_to_trade_book(offer)
+        self.add_to_trade_book(offer, is_accepted = True)
 
     @staticmethod
     def is_trade_valid(offer, buyer):
@@ -39,13 +39,13 @@ class Market:
         buyer.money -= offer.price
         offer.seller.money += offer.price
 
-    def add_to_trade_book(self, offer):
+    def add_to_trade_book(self, offer, is_accepted):
         if offer.item.__class__ not in self.trade_book:
             self.trade_book[offer.item.__class__] = [Trade(
                 price=offer.price,
                 day=self.world.day,
                 item=offer.item.__class__,
-                is_accepted=True,
+                is_accepted=is_accepted,
             )]
         else:
             self.trade_book[offer.item.__class__].append(
@@ -53,7 +53,7 @@ class Market:
                     price=offer.price,
                     day=self.world.day,
                     item=offer.item.__class__,
-                    is_accepted=True,
+                    is_accepted=is_accepted,
                 )
             )
 

@@ -24,12 +24,21 @@ class MarketService:
 
     def remove_all_offers(self):
         for item_class in self.market.offer_book:
+            self.track_rejected_offers(item_class)
             self.market.offer_book[item_class] = list(
                 filter(
                     lambda offer: offer.seller != self.human,
                     self.market.offer_book[item_class]
                 )
             )
+
+    def track_rejected_offers(self, item_class):
+        rejected_offers = filter(
+            lambda offer: offer.seller == self.human,
+            self.market.offer_book[item_class]
+        )
+        for offer in rejected_offers:
+            self.market.add_to_trade_book(offer, is_accepted=False)
 
     def clean_data(self):
         self.remove_all_offers()

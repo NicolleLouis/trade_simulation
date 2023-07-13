@@ -13,10 +13,14 @@ class MarketSellerService:
 
     def sell(self):
         for item in self.inventory:
+            price = self.market_service.get_utility(item)
+            if price == float("inf"):
+                continue
+
             self.market.add_to_offer_book(
                 Offer(
                     seller=self.human,
-                    price=self.market_service.get_utility(item) + 1,
+                    price=price + 1,
                     item=item
                 )
             )

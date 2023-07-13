@@ -14,7 +14,7 @@ class BaseCookable(BaseObject, ABC):
         if self.can_be_used(human):
             return 10 * self.cook_probability(human) * self.TRANSFORM_INTO.FOOD_RETURN
         if self.can_be_produced(human):
-            return 10/self.produce_probability(human)
+            return round(10/self.produce_probability(human), 2)
 
     def usable_jobs(self, human):
         from models.job.chef import Chef
