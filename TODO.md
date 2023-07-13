@@ -2,5 +2,5 @@ Les pêcheurs vendent trop peu cher leurs poissons et ne peuvent plus racheter d
 
 Penser a une solution.
 
-Ajouter la notion de onter les prix quand pas besoin d'argent.
+Ajouter la notion de monter les prix quand pas besoin d'argent.
 Et baisser quand besoin d'argent.

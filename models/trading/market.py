@@ -44,14 +44,16 @@ class Market:
             self.trade_book[offer.item.__class__] = [Trade(
                 price=offer.price,
                 day=self.world.day,
-                item=offer.item.__class__
+                item=offer.item.__class__,
+                is_accepted=True,
             )]
         else:
             self.trade_book[offer.item.__class__].append(
                 Trade(
                     price=offer.price,
                     day=self.world.day,
-                    item=offer.item.__class__
+                    item=offer.item.__class__,
+                    is_accepted=True,
                 )
             )
 

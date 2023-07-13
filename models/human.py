@@ -52,7 +52,7 @@ class Human:
         self.age += 1
         self.stomach_level -= 1
 
-        # Market morning
+        # Market Morning
         self.market_service.buy()
 
         # Active Action

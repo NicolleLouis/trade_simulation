@@ -1,5 +1,6 @@
 from statistics import mean
 
+from service.market.tracker import MarketTrackerService
 from service.visualizer.base_visualizer import BaseVisualizer
 
 
@@ -8,6 +9,7 @@ class MarketVisualizer(BaseVisualizer):
         super().__init__(market.world.display_level)
         self.market = market
         self.trade_book = market.trade_book
+        self.tracker_service = MarketTrackerService(self.market)
 
     def config_lite(self):
         return [
@@ -31,15 +33,5 @@ class MarketVisualizer(BaseVisualizer):
 
     def display_trade_book_statistic(self):
         for item_class in self.trade_book:
-            trades = self.trade_book[item_class]
-            prices = list(
-                map(
-                    lambda trade: trade.price,
-                    trades
-                )
-            )
             print(f"{str(item_class())}:")
-            print(f"{len(trades)} trades occured")
-            print(f"Average price: {round(mean(prices), 2)}")
-            print(f"Maximum price: {max(prices)}")
-            print(f"Minimum price: {min(prices)}")
+            print(self.tracker_service.item_analysis(item_class))
