@@ -9,6 +9,7 @@ from models.world import World
 from service.graph.library.human_money import HumanMoney
 from service.graph.library.market_price import MarketPrice
 from service.graph.library.world_population import WorldPopulation
+from service.graph.library.world_population_job import WorldPopulationJob
 from service.graph.library.world_population_profile import WorldPopulationProfile
 
 
@@ -34,11 +35,12 @@ class Game:
         self.add_graph(WorldPopulation(self.world))
         self.add_graph(MarketPrice(self.world))
         self.add_graph(WorldPopulationProfile(self.world))
+        self.add_graph(WorldPopulationJob(self.world))
 
     def add_humans(self):
-        for _ in range(25):
-            # self.add_human([Fisherman])
-            # self.add_human([Chef])
+        for _ in range(15):
+            self.add_human([Fisherman])
+            self.add_human([Chef])
             self.add_human([Gatherer])
 
     def add_human(self, jobs):

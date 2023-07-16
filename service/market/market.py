@@ -49,7 +49,10 @@ class MarketService:
 
     def add_item_to_utility_book(self, item_class):
         if item_class not in self.utility_book:
-            self.utility_book[item_class] = round(item_class().utility(self.human), 2)
+            if item_class().utility(self.human) is None:
+                self.utility_book[item_class] = 0
+            else:
+                self.utility_book[item_class] = round(item_class().utility(self.human), 2)
 
     def get_utility(self, item_class):
         self.add_item_to_utility_book(item_class)
