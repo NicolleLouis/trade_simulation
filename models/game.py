@@ -1,3 +1,6 @@
+import random
+
+from constants.profile_type import ProfileType
 from models.human import Human
 from models.job.chef import Chef
 from models.job.fisherman import Fisherman
@@ -19,6 +22,8 @@ class Game:
         self.add_graphs()
 
     def display_final_state(self):
+        for human in self.world.humans:
+            human.visualizer.display(2)
         self.world.visualizer.display(2)
         self.world.market.visualizer.display(2)
 
@@ -35,15 +40,21 @@ class Game:
         )
 
     def add_humans(self):
-        for _ in range(25):
-            self.add_human([Fisherman])
-            self.add_human([Chef])
+        for _ in range(10):
+            self.add_human([Fisherman], ProfileType.CAREFUL)
+            self.add_human([Chef], ProfileType.CAREFUL)
+            self.add_human([Fisherman], ProfileType.NORMAL)
+            self.add_human([Chef], ProfileType.NORMAL)
+            self.add_human([Fisherman], ProfileType.ADVENTUROUS)
+            self.add_human([Chef], ProfileType.ADVENTUROUS)
 
-    def add_human(self, jobs):
+    def add_human(self, jobs, profile):
         self.world.add_human(
             Human(
                 jobs=jobs,
-                world=self.world
+                world=self.world,
+                display_level=0,
+                profile=profile,
             )
         )
 

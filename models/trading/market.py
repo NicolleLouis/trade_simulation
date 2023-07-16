@@ -12,6 +12,7 @@ class Market:
         # }
         self.offer_book = {}
         self.trade_book = {}
+        self.stats_book = {}
         self.tracker = MarketTrackerService(self)
 
         self.visualizer = MarketVisualizer(self)
@@ -65,3 +66,6 @@ class Market:
 
     def remove_from_offer_book(self, offer, buyer):
         self.offer_book[offer.item.__class__].remove(offer)
+
+    def clean_data(self):
+        self.tracker.clean_data()

@@ -35,7 +35,7 @@ class MarketBuyerService:
 
     def update_estimated_offers(self):
         for offer in self.available_offers:
-            item_utility = self.market_service.get_utility(offer.item)
+            item_utility = self.market_service.get_utility(offer.item.__class__)
             if item_utility > offer.price:
                 self.estimated_offers.append(
                     EstimatedOffer(

@@ -1,3 +1,4 @@
+from constants.profile_type import ProfileType
 from models.job.basic import Basic
 from service.human import HumanService
 from service.market.market import MarketService
@@ -13,6 +14,7 @@ class Human:
             happiness=0,
             inventory=None,
             jobs=None,
+            profile=ProfileType.NORMAL,
             display_level=0
     ):
         if jobs is None:
@@ -30,6 +32,7 @@ class Human:
         self.stomach_level = stomach_level
         self.happiness = happiness
         self.jobs = []
+        self.profile = profile
         self.inventory = inventory
 
         self.market_service = MarketService(
@@ -53,6 +56,7 @@ class Human:
         self.stomach_level -= 1
 
         # Market Morning
+        self.money = round(self.money, 2)
         self.market_service.buy()
 
         # Active Action
@@ -133,7 +137,8 @@ class Human:
             stomach_level=self.stomach_level,
             happiness=self.happiness,
             inventory=self.inventory.copy(),
-            world=self.world
+            profile=self.profile,
+            world=self.world,
         )
 
     def gain_item(self, item):

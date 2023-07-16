@@ -1,4 +1,5 @@
 from service.market.buyer import MarketBuyerService
+from service.market.profile import ProfileService
 from service.market.seller import MarketSellerService
 
 
@@ -12,6 +13,8 @@ class MarketService:
         self.human = human
         self.buyer_service = MarketBuyerService(self)
         self.seller_service = MarketSellerService(self)
+        self.profile_service = ProfileService(self)
+
         # Utility book is a dictionary of item type: utility of the item
         self.utility_book = {}
 
@@ -46,8 +49,8 @@ class MarketService:
 
     def add_item_to_utility_book(self, item_class):
         if item_class not in self.utility_book:
-            self.utility_book[item_class] = item_class().utility(self.human)
+            self.utility_book[item_class] = round(item_class().utility(self.human), 2)
 
-    def get_utility(self, item):
-        self.add_item_to_utility_book(item.__class__)
-        return self.utility_book[item.__class__]
+    def get_utility(self, item_class):
+        self.add_item_to_utility_book(item_class)
+        return self.utility_book[item_class]

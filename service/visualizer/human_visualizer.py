@@ -9,20 +9,25 @@ class HumanVisualizer(BaseVisualizer):
     def config_lite(self):
         return [
             self.display_basic,
-            self.display_inventory
+            self.display_market_behaviour,
+            self.display_health_infos,
         ]
 
     def config_full(self):
         return [
             self.display_basic,
+            self.display_market_behaviour,
             self.display_last_action,
             self.display_health_infos,
             self.display_inventory,
-            self.display_jobs
+            self.display_jobs,
         ]
 
     def display_basic(self):
         print(f'{str(self.human)}: ')
+
+    def display_market_behaviour(self):
+        print(f'Behaviour: {self.human.profile.name}')
 
     def display_last_action(self):
         print(f'Last action: {str(self.human.last_action)}')
@@ -32,6 +37,7 @@ class HumanVisualizer(BaseVisualizer):
         print(f'Age: {self.human.age}')
 
     def display_inventory(self):
+        print(f'Available Money: {self.human.money}')
         match self.display_level:
             case 1:
                 print(f'Inventory size: {len(self.human.inventory)}')

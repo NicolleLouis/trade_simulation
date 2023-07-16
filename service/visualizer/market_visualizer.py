@@ -1,5 +1,3 @@
-from statistics import mean
-
 from service.market.tracker import MarketTrackerService
 from service.visualizer.base_visualizer import BaseVisualizer
 

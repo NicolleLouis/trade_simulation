@@ -31,4 +31,6 @@ class World:
 
         for human in self.humans:
             human.run_day()
+
+        self.market.clean_data()
         self.update_dead()
