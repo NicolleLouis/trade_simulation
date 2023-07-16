@@ -1,4 +1,5 @@
 import random
+from math import inf
 
 from constants.profile_type import ProfileType
 
@@ -15,10 +16,7 @@ class ProfileService:
         self.tracker_service = self.market.tracker
 
     # Return (min, max) value of an item
-    def get_interval(self, item_class):
-        intrinsic_value = self.market_service.get_utility(item_class)
-        market_stats = self.tracker_service.item_analysis(item_class)
-
+    def get_interval(self, intrinsic_value, market_stats):
         if market_stats.is_empty:
             min_price, max_price = self.get_empty_interval(intrinsic_value)
         else:
@@ -71,6 +69,12 @@ class ProfileService:
         if money_need < 0 or money_need > 1:
             raise BaseException(f'Money need should be a positive ratio: {money_need}')
 
-        min_price, max_price = self.get_interval(item_class)
+        intrinsic_value = self.market_service.get_utility(item_class)
+        market_stats = self.tracker_service.item_analysis(item_class)
+
+        if intrinsic_value == inf:
+            return None
+
+        min_price, max_price = self.get_interval(intrinsic_value, market_stats)
         price = round(min_price + money_need*(max_price - min_price), 2)
         return price

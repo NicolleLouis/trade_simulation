@@ -1,4 +1,4 @@
-from statistics import mean
+from statistics import fmean
 
 from models.trading.market_statistic import MarketStatistic
 
@@ -27,19 +27,20 @@ class MarketTrackerService:
                 is_accepted_trades
             )
         )
+        prices = [price for price in prices if price is not None]
         return prices
 
     def average_price(self, item_class, is_accepted):
         prices = self.get_prices(item_class, is_accepted)
         if len(prices) == 0:
             return None
-        return round(mean(prices), 2)
+        return round(fmean(prices), 2)
 
     def average_prices(self, is_accepted):
-        average_prices = {}
+        averages = {}
         for item_class in self.trade_book:
-            average_prices[item_class] = self.average_price(item_class, is_accepted)
-        return average_prices
+            averages[item_class] = self.average_price(item_class, is_accepted)
+        return averages
 
     def maximum_price(self, item_class, is_accepted):
         prices = self.get_prices(item_class, is_accepted)

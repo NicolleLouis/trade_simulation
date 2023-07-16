@@ -5,7 +5,7 @@ class WorldPopulation(DataLogger):
     TITLE = "World Population"
     X_LABEL = "Days"
     Y_LABEL = "Human Number"
-    FILE_ADDRESS = "human_population"
+    FILE_ADDRESS = "world_population"
 
     ALIVE_LABEL = "Alive"
     DEAD_LABEL = "Dead"

@@ -26,3 +26,12 @@ class MarketStatistic:
 
     def is_empty(self):
         return self.number_rejected == 0 or self.number_accepted == 0
+
+    def display(self):
+        print(f"{str(self.item_class())}:")
+        print(f"Number of Trades: {self.number_accepted}")
+        print(f"Average price: {self.average_sold}€")
+        print(f"Max/Min accepted: {self.minimum_sold}/{self.maximum_sold}€")
+        print(f"Number of offers rejected: {self.number_rejected}")
+        print(f"Average price rejected: {self.average_rejected}€")
+        print(f"Max/Min rejected: {self.minimum_rejected}/{self.maximum_rejected}€")
