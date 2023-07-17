@@ -6,7 +6,6 @@ from models.job.chef import Chef
 from models.job.fisherman import Fisherman
 from models.job.gatherer import Gatherer
 from models.world import World
-from service.graph.library.human_money import HumanMoney
 from service.graph.library.market_price import MarketPrice
 from service.graph.library.world_population import WorldPopulation
 from service.graph.library.world_population_job import WorldPopulationJob
@@ -21,6 +20,7 @@ class Game:
     def __init__(self):
         self.world = World(display_level=self.WORLD_DISPLAY_LEVEL)
         self.add_humans()
+        self.add_hero()
         self.graphs = []
         self.add_graphs()
 
@@ -29,7 +29,6 @@ class Game:
         #     human.visualizer.display(2)
         self.world.visualizer.display(2)
         self.world.market.visualizer.display(2)
-        self.world.market.visualizer.display(2)
 
     def add_graphs(self):
         self.add_graph(WorldPopulation(self.world))
@@ -37,25 +36,29 @@ class Game:
         self.add_graph(WorldPopulationProfile(self.world))
         self.add_graph(WorldPopulationJob(self.world))
 
+    def add_hero(self):
+        hero = self.random_human([Fisherman], 2)
+        self.world.add_hero(hero)
+
     def add_humans(self):
-        for _ in range(15):
+        for _ in range(10):
             self.add_human([Fisherman])
             self.add_human([Chef])
-            self.add_human([Gatherer])
 
     def add_human(self, jobs):
+        self.world.add_human(self.random_human(jobs))
+
+    def random_human(self, jobs, display_level=0):
         profile = random.choice(
             [ProfileType.CAREFUL,
              ProfileType.NORMAL,
              ProfileType.ADVENTUROUS]
         )
-        self.world.add_human(
-            Human(
-                jobs=jobs,
-                world=self.world,
-                display_level=0,
-                profile=profile,
-            )
+        return Human(
+            jobs=jobs,
+            world=self.world,
+            display_level=display_level,
+            profile=profile,
         )
 
     def display_graph(self):

@@ -17,7 +17,7 @@ class ProfileService:
 
     # Return (min, max) value of an item
     def get_interval(self, intrinsic_value, market_stats):
-        if market_stats.is_empty:
+        if market_stats.is_empty():
             min_price, max_price = self.get_empty_interval(intrinsic_value)
         else:
             min_price, max_price = self.get_real_interval(
@@ -59,7 +59,7 @@ class ProfileService:
                 min_price = max(intrinsic_value, market_stats.average_sold)
                 max_price = min(
                     market_stats.maximum_sold * 2,
-                    market_stats.average_refused
+                    market_stats.average_rejected
                 )
         return min_price, max_price
 

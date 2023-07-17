@@ -6,6 +6,7 @@ class World:
     def __init__(self, display_level=0):
         self.display_level = display_level
         self.day = 0
+        self.hero = None
         self.humans = []
         self.market = Market(self)
         self.dead_humans = []
@@ -13,6 +14,10 @@ class World:
 
     def add_human(self, human):
         self.humans.append(human)
+
+    def add_hero(self, hero):
+        self.add_human(hero)
+        self.hero = hero
 
     def update_dead(self):
         new_dead = filter(
