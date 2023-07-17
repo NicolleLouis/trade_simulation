@@ -64,8 +64,10 @@ class Game:
                 graph.display()
             graph.save()
 
-    def run(self):
-        for _ in range(self.DAY_NUMBER):
+    def run(self, day_number=None):
+        if day_number is None:
+            day_number = self.DAY_NUMBER
+        for _ in range(day_number):
             self.run_day()
         self.display_final_state()
         self.display_graph()
