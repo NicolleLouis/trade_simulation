@@ -1,3 +1,3 @@
 - Inside the ProfileService replace the money need random value by a true computation
-- Add a Hero that we could track daily -> Helps debug and understand what's going on daily
-- Replace item instance by only class/quantity?
+- Debug why the user can't buy fish. Are they all bought already? Not produced enough?
+- Maybe add a graph showing the number of item per day
