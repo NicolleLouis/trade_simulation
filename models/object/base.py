@@ -5,6 +5,7 @@ class BaseObject(ABC):
     NAME = None
 
     def __init__(self):
+        self.edible = False
         self.sanitize()
 
     def __str__(self):

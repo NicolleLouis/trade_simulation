@@ -35,17 +35,15 @@ class Eat(BaseAction):
             print("This consumption was suboptimal")
 
     def clean_data(self):
+        self.owned_food = None
         self.food_eaten = []
         self.initial_stomach_level = self.human.stomach_level
         self.has_eaten = False
 
     def detect_food(self):
-        self.owned_food = list(
-            filter(
-                lambda item: item.edible,
-                self.human.inventory
-            )
-        )
+        self.owned_food = [
+            item for item in self.human.inventory if item.edible
+        ]
         if len(self.owned_food) == 0:
             raise BaseException(f"No edible food owned by {self.human}")
 

@@ -1,3 +1,6 @@
 - Inside the ProfileService replace the money need random value by a true computation
-- Debug why the user can't buy fish. Are they all bought already? Not produced enough?
-- Maybe add a graph showing the number of item per day
+- Graph hero money (While alive) (Or graph utility Hero)
+- Add more object deletion (Food goes wasted?)
+- Compare the profile money to guess what's the best option.
+- Optimize when more human or longer time -> trade book compression by 'erasing past data'
+- Understand where the rounding issue comes from (human money not round)

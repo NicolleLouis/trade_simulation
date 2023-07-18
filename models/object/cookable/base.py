@@ -16,7 +16,8 @@ class BaseCookable(BaseObject, ABC):
         if self.can_be_produced(human):
             return round(10/self.produce_probability(human), 2)
 
-    def usable_jobs(self, human):
+    @staticmethod
+    def usable_jobs(human):
         from models.job.chef import Chef
 
         return list(

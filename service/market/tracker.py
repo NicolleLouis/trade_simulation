@@ -6,29 +6,37 @@ from models.trading.market_statistic import MarketStatistic
 class MarketTrackerService:
     def __init__(self, market):
         self.trade_book = market.trade_book
+        # item_class -> stats
         self.stats_book = {}
+        # ToDo, add N days to keep the average on last days only. Only keep the list of trades for those
+        # And only keep the stats for the previous days. Will quicken everything plus improve price computation
+        # item_class -> {
+        # accepted -> list
+        # rejected -> list
+        # }
+        self.prices_book = {}
 
     def clean_data(self):
         self.stats_book = {}
+        self.prices_book = {}
+
+    def generate_price_book(self, item_class, is_accepted):
+        trades = self.trade_book[item_class]
+        is_accepted_trades = [trade for trade in trades if trade.is_accepted is is_accepted]
+        prices = [trade.price for trade in is_accepted_trades]
+        self.prices_book[item_class][is_accepted] = [price for price in prices if price is not None]
+
+    def generate_total_price_book(self, item_class):
+        self.prices_book[item_class] = {}
+        self.generate_price_book(item_class, True)
+        self.generate_price_book(item_class, False)
 
     def get_prices(self, item_class, is_accepted):
         if item_class not in self.trade_book:
             return []
-        trades = self.trade_book[item_class]
-        is_accepted_trades = list(
-            filter(
-                lambda trade: trade.is_accepted == is_accepted,
-                trades
-            )
-        )
-        prices = list(
-            map(
-                lambda trade: trade.price,
-                is_accepted_trades
-            )
-        )
-        prices = [price for price in prices if price is not None]
-        return prices
+        if item_class not in self.prices_book:
+            self.generate_total_price_book(item_class)
+        return self.prices_book[item_class][is_accepted]
 
     def average_price(self, item_class, is_accepted):
         prices = self.get_prices(item_class, is_accepted)

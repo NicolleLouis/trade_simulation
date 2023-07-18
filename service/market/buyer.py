@@ -24,14 +24,10 @@ class MarketBuyerService:
 
     def update_available_offers(self):
         for item in self.market.offer_book:
-            self.available_offers.extend(
-                list(
-                    filter(
-                        lambda offer: offer.price <= self.human.money,
-                        self.market.offer_book[item]
-                    )
-                )
-            )
+            item_available_offer = [
+                offer for offer in self.market.offer_book[item] if offer.price <= self.human.money
+            ]
+            self.available_offers.extend(item_available_offer)
 
     def update_estimated_offers(self):
         for offer in self.available_offers:
