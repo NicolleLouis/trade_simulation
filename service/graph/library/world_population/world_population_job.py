@@ -7,13 +7,7 @@ class WorldPopulationJob(DataLogger):
     Y_LABEL = "Human Number"
     FILE_ADDRESS = "world_population_job"
 
-    def __init__(self, world):
-        super().__init__()
-        self.world = world
-
     def fetch_data(self):
-        day = self.world.day
-
         human_by_job = {}
 
         for human in self.world.humans:
@@ -26,4 +20,4 @@ class WorldPopulationJob(DataLogger):
                 human_by_job[job_name] += 1
 
         for job, number_of_human in human_by_job.items():
-            self.add_point(job, day, number_of_human)
+            self.add_point(job, self.day(), number_of_human)

@@ -7,13 +7,7 @@ class Item(DataLogger):
     Y_LABEL = "Item Number"
     FILE_ADDRESS = "item"
 
-    def __init__(self, world):
-        super().__init__()
-        self.world = world
-
     def fetch_data(self):
-        day = self.world.day
-
         item_number = {}
 
         for human in self.world.humans:
@@ -24,4 +18,4 @@ class Item(DataLogger):
                 item_number[item_name] += 1
 
         for item, number_of_item in item_number.items():
-            self.add_point(item, day, number_of_item)
+            self.add_point(item, self.day(), number_of_item)

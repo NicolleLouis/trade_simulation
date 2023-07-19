@@ -1,10 +1,10 @@
 import pdb
 
-from service.game import GameService
+from service.game.save import GameSaveService
 
 SAVE_NAME = "fisher-cook-exploration"
 
-game = GameService.open_or_create_game(SAVE_NAME)
+game = GameSaveService.open_or_create_game(SAVE_NAME)
 
 market = game.world.market.visualizer
 

@@ -5,12 +5,7 @@ from models.human import Human
 from models.job.chef import Chef
 from models.job.fisherman import Fisherman
 from models.world import World
-from service.graph.library.human_money import HumanMoney
-from service.graph.library.item import Item
-from service.graph.library.market_price import MarketPrice
-from service.graph.library.world_population import WorldPopulation
-from service.graph.library.world_population_job import WorldPopulationJob
-from service.graph.library.world_population_profile import WorldPopulationProfile
+from service.game.graph import GameGraphService
 
 
 class Game:
@@ -21,9 +16,8 @@ class Game:
     def __init__(self):
         self.world = World(display_level=self.WORLD_DISPLAY_LEVEL)
         self.add_humans()
-        # self.add_hero()
-        self.graphs = []
-        self.add_graphs()
+        self.add_hero()
+        self.graph_service = GameGraphService(self)
 
     def display_final_state(self):
         # for human in self.world.humans:
@@ -31,16 +25,8 @@ class Game:
         self.world.visualizer.display(2)
         self.world.market.visualizer.display(2)
 
-    def add_graphs(self):
-        self.add_graph(WorldPopulation(self.world))
-        self.add_graph(MarketPrice(self.world))
-        self.add_graph(WorldPopulationProfile(self.world))
-        self.add_graph(WorldPopulationJob(self.world))
-        self.add_graph(Item(self.world))
-        self.add_graph(HumanMoney(self.world, hide_dead=True, only_richest=2, only_poorest=2))
-
     def add_hero(self):
-        hero = self.random_human([Fisherman], 2)
+        hero = self.random_human([Chef], 2)
         self.world.add_hero(hero)
 
     def add_humans(self):
@@ -64,24 +50,14 @@ class Game:
             profile=profile,
         )
 
-    def display_graph(self):
-        for graph in self.graphs:
-            if self.DISPLAY_GRAPH:
-                graph.display()
-            graph.save()
-
     def run(self, day_number=None):
         if day_number is None:
             day_number = self.DAY_NUMBER
         for _ in range(day_number):
             self.run_day()
         self.display_final_state()
-        self.display_graph()
+        self.graph_service.export(self.DISPLAY_GRAPH)
 
     def run_day(self):
         self.world.run_day()
-        for graph in self.graphs:
-            graph.fetch_data()
-
-    def add_graph(self, data_logger):
-        self.graphs.append(data_logger)
+        self.graph_service.fetch_data()

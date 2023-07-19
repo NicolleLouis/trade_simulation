@@ -12,18 +12,16 @@ class HumanMoney(DataLogger):
     # only_poorest: if None, do nothing, else display only n poorest human
     def __init__(
             self,
-            world,
+            game,
             hide_dead=False,
             only_richest=None,
             only_poorest=None,
     ):
-        self.world = world
+        super().__init__(game)
         self.hide_dead = hide_dead
         self.only_richest = only_richest
         self.only_poorest = only_poorest
         self.sanitize()
-
-        super().__init__()
 
     def sanitize(self):
         if self.only_richest is not None:
@@ -40,15 +38,14 @@ class HumanMoney(DataLogger):
             self.only_richest = None
 
     def fetch_data(self):
-        day = self.world.day
         for human in self.world.humans:
             self.add_point(
                 human.name,
-                day,
+                self.day(),
                 human.money
             )
 
-    def hook_post_computation(self):
+    def hook_pre_save(self):
         self.filter_dead()
         self.filter_extremum()
 

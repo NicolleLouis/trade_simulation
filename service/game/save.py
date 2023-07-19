@@ -4,7 +4,7 @@ from os.path import exists
 from models.game import Game
 
 
-class GameService:
+class GameSaveService:
     @staticmethod
     def file_address(save_name):
         return f"saved_state/{save_name}"

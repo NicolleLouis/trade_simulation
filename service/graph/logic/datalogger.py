@@ -10,13 +10,15 @@ class DataLogger(ABC):
     Y_LABEL = None
     FILE_ADDRESS = None
 
-    def __init__(self):
+    def __init__(self, game):
         self.sanitize()
         self.graph_data = GraphData(
             title=self.TITLE,
             x_label=self.X_LABEL,
             y_label=self.Y_LABEL,
         )
+        self.game = game
+        self.world = game.world
 
     def sanitize(self):
         if self.TITLE is None:
@@ -32,13 +34,13 @@ class DataLogger(ABC):
         return f"graph/{self.FILE_ADDRESS}.png"
 
     def display(self):
-        self.hook_post_computation()
+        self.hook_pre_save()
         PlotService(
             graph_data=self.graph_data
         ).show()
 
     def save(self):
-        self.hook_post_computation()
+        self.hook_pre_save()
         PlotService(
             graph_data=self.graph_data
         ).save(self.file_address())
@@ -54,5 +56,13 @@ class DataLogger(ABC):
     def fetch_data(self):
         raise NotImplementedError
 
-    def hook_post_computation(self):
+    # Hook called before saving/displaying the graph, useful to filter some dataset for example
+    def hook_pre_save(self):
         pass
+
+    # Hook called at the init, if true, it removes the graph from the game
+    def should_be_deleted(self):
+        return False
+
+    def day(self):
+        return self.world.day
