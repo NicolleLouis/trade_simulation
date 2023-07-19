@@ -5,6 +5,7 @@ from math import floor, log2
 class BaseJob(ABC):
     NAME = None
     ACTIONS = None
+    MAXIMUM_LEVEL = 10
 
     def __init__(
             self,
@@ -40,7 +41,7 @@ class BaseJob(ABC):
     def update_level(self):
         self.level = min(
             floor(log2(self.experience)),
-            10
+            self.MAXIMUM_LEVEL
         )
 
     def level_impact(self):

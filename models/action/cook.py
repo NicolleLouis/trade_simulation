@@ -9,7 +9,7 @@ class Cook(BaseAction):
     NAME = "COOK"
     RANDOM = True
     OBJECT = RawFish
-    EXPERIENCE_GAIN = 5
+    EXPERIENCE_GAIN = 1
     BASE_PROBABILITY = 50
 
     def __init__(self, job):
