@@ -32,7 +32,8 @@ class Game:
     def add_humans(self):
         for _ in range(5):
             self.add_human([Fisherman])
-            self.add_human([Chef])
+        # for _ in range(1):
+        #     self.add_human([Chef])
 
     def add_human(self, jobs):
         self.world.add_human(self.random_human(jobs))

@@ -13,7 +13,6 @@ class MarketVisualizer(BaseVisualizer):
     def config_lite(self):
         return [
             self.display_title,
-            self.display_trade_book_sum
         ]
 
     def config_full(self):
@@ -25,11 +24,6 @@ class MarketVisualizer(BaseVisualizer):
     @staticmethod
     def display_title():
         print("Market:")
-
-    def display_trade_book_sum(self):
-        for item_class in self.trade_book:
-            number_of_trades = self.tracker_service.item_analysis(item_class).number_accepted
-            print(f"{str(item_class())}: {number_of_trades} trades")
 
     def display_trade_book_statistic(self):
         for item_class in self.trade_book:

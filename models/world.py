@@ -1,3 +1,5 @@
+import random
+
 from models.trading.market import Market
 from service.visualizer.world_visualizer import WorldVisualizer
 
@@ -34,6 +36,7 @@ class World:
         self.visualizer.display()
         self.day += 1
 
+        random.shuffle(self.humans)
         for human in self.humans:
             human.run_day()
 

@@ -24,7 +24,7 @@ class Market:
         self.remove_from_offer_book(offer, buyer)
         self.transfer_item(offer, buyer)
         self.transfer_money(offer, buyer)
-        self.add_to_trade_book(offer, is_accepted = True)
+        self.add_to_trade_book(offer, is_accepted=True)
 
     @staticmethod
     def is_trade_valid(offer, buyer):

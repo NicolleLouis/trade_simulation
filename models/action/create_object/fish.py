@@ -7,4 +7,4 @@ class Fish(BaseCreateObjectAction):
     RANDOM = True
     OBJECT = RawFish
     EXPERIENCE_GAIN = 1
-    BASE_PROBABILITY = 8
+    BASE_PROBABILITY = 10

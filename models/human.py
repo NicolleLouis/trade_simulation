@@ -45,8 +45,8 @@ class Human:
         self.visualizer = HumanVisualizer(self)
 
         self.update_jobs(jobs)
-    MAXIMUM_STOMACH_LEVEL = 30
 
+    MAXIMUM_STOMACH_LEVEL = 30
     BASE_JOB = [Basic]
 
     def run_day(self):

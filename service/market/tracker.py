@@ -1,11 +1,14 @@
 from statistics import fmean
 
+from models.trading.item_market_statistics import ItemMarketStatistic
 from models.trading.market_statistic import MarketStatistic
 
 
 class MarketTrackerService:
     def __init__(self, market):
+        # List all the history of trades
         self.trade_book = market.trade_book
+        # Cache object
         # item_class -> stats
         self.stats_book = {}
         # ToDo, add N days to keep the average on last days only. Only keep the list of trades for those
@@ -68,16 +71,22 @@ class MarketTrackerService:
 
     def item_analysis(self, item_class) -> MarketStatistic:
         if item_class not in self.stats_book:
-            stats = MarketStatistic(
+            accepted = MarketStatistic(
+                average=self.average_price(item_class, is_accepted=True),
+                maximum=self.maximum_price(item_class, is_accepted=True),
+                minimum=self.minimum_price(item_class, is_accepted=True),
+                number=self.number_of_trades(item_class, is_accepted=True),
+            )
+            rejected = MarketStatistic(
+                average=self.average_price(item_class, is_accepted=False),
+                maximum=self.maximum_price(item_class, is_accepted=False),
+                minimum=self.minimum_price(item_class, is_accepted=False),
+                number=self.number_of_trades(item_class, is_accepted=False),
+            )
+            stats = ItemMarketStatistic(
                 item_class=item_class,
-                average_sold=self.average_price(item_class, is_accepted=True),
-                average_rejected=self.average_price(item_class, is_accepted=False),
-                maximum_sold=self.maximum_price(item_class, is_accepted=True),
-                maximum_rejected=self.maximum_price(item_class, is_accepted=False),
-                minimum_sold=self.minimum_price(item_class, is_accepted=True),
-                minimum_rejected=self.minimum_price(item_class, is_accepted=False),
-                number_accepted=self.number_of_trades(item_class, is_accepted=True),
-                number_rejected=self.number_of_trades(item_class, is_accepted=False),
+                accepted_statistics=accepted,
+                rejected_statistics=rejected,
             )
             self.stats_book[item_class] = stats
         return self.stats_book[item_class]

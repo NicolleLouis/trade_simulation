@@ -22,4 +22,4 @@ class HeroJobExperience(DataLogger):
             job_name = job.NAME
             if job_name == "BASIC":
                 continue
-            self.add_point("job_name", self.day(), job.experience)
+            self.add_point(job_name, self.day(), job.experience)
