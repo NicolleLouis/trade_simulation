@@ -18,3 +18,10 @@ class MarketStatistic:
         print(f"Average: {self.average}€")
         print(f"Min/Max: {self.minimum}/{self.maximum}€")
         print(f"Number: {self.number}")
+
+    def __add__(self, other):
+        self.maximum = max(self.maximum, other.maximum)
+        self.maximum = max(self.maximum, other.maximum)
+        new_number = self.number + other.number
+        self.average = ((self.number * self.average) + (other.number * other.average))/new_number
+        self.number = new_number

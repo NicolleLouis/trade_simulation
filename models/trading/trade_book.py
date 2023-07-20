@@ -1,14 +1,11 @@
 from models.trading.trade import Trade
+from service.market.detailed_boook import DetailedBookService
 
 
 class TradeBook:
     NUMBER_OF_DAYS = 30
 
     def __init__(self, market):
-        # Only contains trades from the last NUMBER_OF_DAYS days
-        # {
-        #     item_class: [list_of: trades]
-        # }
         self.detailed_book = {}
         # Contains a concatenated version of the past trades (Before NUMBER_OF_DAYS)
         # {
@@ -20,6 +17,11 @@ class TradeBook:
         #
         self.past_stats = {}
         self.market = market
+        self.detailed_book_service = DetailedBookService(self)
+        # Only contains trades from the last NUMBER_OF_DAYS days
+        # {
+        #     item_class: [list_of: trades]
+        # }
 
     def add_to_trade_book(self, offer, is_accepted):
         item_class = offer.item.__class__
@@ -36,3 +38,6 @@ class TradeBook:
 
     def day(self):
         return self.market.world.day
+
+    def clean_data(self):
+        self.detailed_book_service.clean_data()

@@ -18,3 +18,9 @@ class ItemMarketStatistic:
         self.accepted_statistics.display()
         print(f"Refused trades:")
         self.rejected_statistics.display()
+
+    def __add__(self, other):
+        if self.item_class != other.item_class:
+            raise BaseException("Summing carrot and Choux")
+        self.accepted_statistics = self.accepted_statistics + other.accepted_statistics
+        self.rejected_statistics = self.rejected_statistics + other.rejected_statistics

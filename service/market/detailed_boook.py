@@ -4,19 +4,15 @@ from models.trading.item_market_statistics import ItemMarketStatistic
 from models.trading.market_statistic import MarketStatistic
 
 
-class MarketTrackerService:
-    def __init__(self, market):
+class DetailedBookService:
+    def __init__(self, trade_book):
         # List all the history of trades
-        self.trade_book = market.trade_book
+        self.trade_book = trade_book.detailed_book
         # Cache object
         # item_class -> stats
         self.stats_book = {}
-        # ToDo, add N days to keep the average on last days only. Only keep the list of trades for those
-        # And only keep the stats for the previous days. Will quicken everything plus improve price computation
-        # item_class -> {
-        # accepted -> list
-        # rejected -> list
-        # }
+        # Cache object
+        # In charge of caching the prices from the detailed book
         self.prices_book = {}
 
     def clean_data(self):

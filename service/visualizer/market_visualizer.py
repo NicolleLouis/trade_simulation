@@ -1,4 +1,4 @@
-from service.market.tracker import MarketTrackerService
+from service.market.detailed_boook import DetailedBookService
 from service.visualizer.base_visualizer import BaseVisualizer
 
 
@@ -8,7 +8,7 @@ class MarketVisualizer(BaseVisualizer):
         self.market = market
         self.trade_book = market.trade_book
         self.offer_book = market.offer_book
-        self.tracker_service = MarketTrackerService(self.market)
+        self.tracker_service = DetailedBookService(self.market.trade_book)
 
     def config_lite(self):
         return [
@@ -26,7 +26,7 @@ class MarketVisualizer(BaseVisualizer):
         print("Market:")
 
     def display_trade_book_statistic(self):
-        for item_class in self.trade_book:
+        for item_class in self.trade_book.detailed_book:
             self.tracker_service.item_analysis(item_class).display()
 
     def display_offers(self, human):

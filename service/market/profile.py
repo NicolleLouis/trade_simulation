@@ -14,7 +14,7 @@ class ProfileService:
         self.market = market_service.market
         self.human = market_service.human
 
-        self.tracker_service = self.market.tracker
+        self.tracker_service = self.market.trade_book.detailed_book_service
 
     # Return (min, max) value of an item
     def get_interval(self, intrinsic_value, item_market_stats):

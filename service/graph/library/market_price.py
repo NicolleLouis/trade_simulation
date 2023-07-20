@@ -3,14 +3,14 @@ from service.graph.logic.datalogger import DataLogger
 
 
 class MarketPrice(DataLogger):
-    TITLE = "Average Market Price"
+    TITLE = "Average Running Market Price"
     X_LABEL = "Days"
     Y_LABEL = "Price"
     FILE_ADDRESS = "market_price"
 
     def __init__(self, game):
         super().__init__(game)
-        self.tracker = self.world.market.tracker
+        self.tracker = self.world.market.trade_book.detailed_book_service
 
     def fetch_data(self):
         average_prices = self.tracker.average_prices(is_accepted=True)

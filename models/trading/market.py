@@ -1,5 +1,5 @@
 from models.trading.trade import Trade
-from service.market.tracker import MarketTrackerService
+from models.trading.trade_book import TradeBook
 from service.visualizer.market_visualizer import MarketVisualizer
 
 
@@ -8,12 +8,11 @@ class Market:
         self.world = world
         # books are organized like:
         # {
-        #     item_class: [list_of: trades/offers]
+        #     item_class: [list_of: offers]
         # }
         self.offer_book = {}
-        self.trade_book = {}
+        self.trade_book = TradeBook(self)
         self.stats_book = {}
-        self.tracker = MarketTrackerService(self)
 
         self.visualizer = MarketVisualizer(self)
 
@@ -41,22 +40,7 @@ class Market:
         offer.seller.money += offer.price
 
     def add_to_trade_book(self, offer, is_accepted):
-        if offer.item.__class__ not in self.trade_book:
-            self.trade_book[offer.item.__class__] = [Trade(
-                price=offer.price,
-                day=self.world.day,
-                item=offer.item.__class__,
-                is_accepted=is_accepted,
-            )]
-        else:
-            self.trade_book[offer.item.__class__].append(
-                Trade(
-                    price=offer.price,
-                    day=self.world.day,
-                    item=offer.item.__class__,
-                    is_accepted=is_accepted,
-                )
-            )
+        self.trade_book.add_to_trade_book(offer=offer, is_accepted=is_accepted)
 
     def add_to_offer_book(self, offer):
         if offer.item.__class__ not in self.offer_book:
@@ -68,4 +52,4 @@ class Market:
         self.offer_book[offer.item.__class__].remove(offer)
 
     def clean_data(self):
-        self.tracker.clean_data()
+        self.trade_book.clean_data()
