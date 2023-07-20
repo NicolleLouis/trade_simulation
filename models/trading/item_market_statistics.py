@@ -22,5 +22,10 @@ class ItemMarketStatistic:
     def __add__(self, other):
         if self.item_class != other.item_class:
             raise BaseException("Summing carrot and Choux")
-        self.accepted_statistics = self.accepted_statistics + other.accepted_statistics
-        self.rejected_statistics = self.rejected_statistics + other.rejected_statistics
+        accepted_statistics = self.accepted_statistics + other.accepted_statistics
+        rejected_statistics = self.rejected_statistics + other.rejected_statistics
+        return ItemMarketStatistic(
+            item_class=self.item_class,
+            accepted_statistics=accepted_statistics,
+            rejected_statistics=rejected_statistics,
+        )

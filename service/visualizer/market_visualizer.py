@@ -26,8 +26,8 @@ class MarketVisualizer(BaseVisualizer):
         print("Market:")
 
     def display_trade_book_statistic(self):
-        for item_class in self.trade_book.detailed_book:
-            self.tracker_service.item_analysis(item_class).display()
+        for item_class in self.trade_book.past_stats:
+            self.trade_book.get_complete_analysis(item_class).display()
 
     def display_offers(self, human):
         for item_class, offers in self.offer_book.items():

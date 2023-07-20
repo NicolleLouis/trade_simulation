@@ -6,6 +6,4 @@ SAVE_NAME = "fisher-cook-exploration"
 
 game = GameSaveService.open_or_create_game(SAVE_NAME)
 
-market = game.world.market.visualizer
-
-pdb.set_trace()
+world = game.world
