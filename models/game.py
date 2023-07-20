@@ -4,6 +4,7 @@ from constants.profile_type import ProfileType
 from models.human import Human
 from models.job.chef import Chef
 from models.job.fisherman import Fisherman
+from models.job.gatherer import Gatherer
 from models.world import World
 from service.game.graph import GameGraphService
 
@@ -20,20 +21,21 @@ class Game:
         self.graph_service = GameGraphService(self)
 
     def display_final_state(self):
-        # for human in self.world.humans:
-        #     human.visualizer.display(2)
         self.world.visualizer.display(2)
         self.world.market.visualizer.display(2)
 
     def add_hero(self):
-        hero = self.random_human([Chef], 2)
+        hero = self.random_human([Chef, Fisherman], 2)
         self.world.add_hero(hero)
 
     def add_humans(self):
-        for _ in range(5):
-            self.add_human([Fisherman])
-        # for _ in range(1):
+        # for _ in range(10):
+        #     self.add_human([Fisherman])
+        #     self.add_human([Fisherman])
+        #     self.add_human([Fisherman])
         #     self.add_human([Chef])
+        #     self.add_human([Gatherer])
+        pass
 
     def add_human(self, jobs):
         self.world.add_human(self.random_human(jobs))

@@ -16,14 +16,14 @@
 
 # Analysis - Behaviour
 - Compare the profile money to guess what's the best option.
-- More Fisherman than Cook
-- More Cook than Fisherman
-- A Hero that is both Cook and Fisherman
 
 # Perf improvement
-- Optimize when more human or longer time -> trade book compression by 'erasing past data'
+- No crazy bottleneck for now. Maybe reduce the number of inventory space or amount of trade doable
+- Other solution is to store the trade event into a compacted form day by day. And after 60 day, sum into the big one?
 
 # Content
+- Object that can be destroyed (Food goes wasted for example)
+- Cook can burn their fish
 - Add Thief
   - Change the amount of money stolen depending on the level?
   - Or steal objects at first and money after a certain level?

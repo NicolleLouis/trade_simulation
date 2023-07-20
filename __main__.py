@@ -1,6 +1,6 @@
 from service.game.save import GameSaveService
 
-SAVE_NAME = "fisher-cook-exploration"
+SAVE_NAME = "main"
 DAY_NUMBER = 300
 
 game = GameSaveService.open_or_create_game(SAVE_NAME)
