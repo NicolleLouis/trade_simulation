@@ -23,10 +23,11 @@
 - Other solution is to store the trade event into a compacted form day by day. And after 60 day, sum into the big one?
 
 # Content
-- Object that can be destroyed (Food goes wasted for example)
 - Add Thief
   - Change the amount of money stolen depending on the level?
   - Or steal objects at first and money after a certain level?
+- Add another cooking option: Apple -> Apple Pie (Both edible but giving way more in the second case)
+- Add another cooking option: Multiple ingredients
 - Add couple and children (human number might skyrocket? Maybe more death, ageing?). Transmit money and random job? 
 - Add landlord and land renting to fish or gather or cook
 - Teacher to give people experience? Hard to price

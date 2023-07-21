@@ -1,3 +1,5 @@
+import random
+
 from constants.profile_type import ProfileType
 from models.job.basic import Basic
 from service.human import HumanService
@@ -44,7 +46,7 @@ class Human:
         self.last_action = None
         self.visualizer = HumanVisualizer(self)
 
-        self.update_jobs(jobs)
+        self.add_jobs(jobs)
 
     MAXIMUM_STOMACH_LEVEL = 30
     BASE_JOB = [Basic]
@@ -64,6 +66,9 @@ class Human:
         self.last_action = best_action
         best_action.run()
 
+        # Item destruction check
+        self.item_destruction()
+
         # Market Evening
         self.market_service.sell()
 
@@ -74,7 +79,7 @@ class Human:
         # Display
         self.visualizer.display()
 
-    def update_jobs(self, jobs):
+    def add_jobs(self, jobs):
         for job in self.BASE_JOB:
             self.jobs.append(job(self))
         for job in jobs:
@@ -149,3 +154,12 @@ class Human:
             self.inventory.remove(item)
         except ValueError:
             raise f"{item} not in {self} possession"
+
+    def item_destruction(self):
+        deleted_items = []
+        for item in self.inventory:
+            if item.DESTROYABLE:
+                if random.random() < item.destroy_probability():
+                    deleted_items.append(item)
+        for item in deleted_items:
+            self.remove_item(item)

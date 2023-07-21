@@ -3,6 +3,8 @@ from abc import ABC, abstractmethod
 
 class BaseObject(ABC):
     NAME = None
+    DESTROYABLE = False
+    DESTROY_PROBABILITY = None
 
     def __init__(self):
         self.edible = False
@@ -22,3 +24,9 @@ class BaseObject(ABC):
     @abstractmethod
     def utility(self, human):
         raise NotImplementedError
+
+    def destroy_probability(self):
+        if not self.DESTROYABLE:
+            return None
+        else:
+            return self.DESTROY_PROBABILITY/100
