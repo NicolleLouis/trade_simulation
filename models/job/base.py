@@ -16,7 +16,7 @@ class BaseJob(ABC):
         self.experience = experience
         self.level = 0
         self.actions = []
-        self.compute_action()
+        self.add_actions()
 
     def is_item_produced(self, item_class):
         for action in self.actions:
@@ -51,6 +51,6 @@ class BaseJob(ABC):
         self.experience += experience
         self.update_level()
 
-    def compute_action(self):
+    def add_actions(self):
         for action in self.ACTIONS:
             self.actions.append(action(self))

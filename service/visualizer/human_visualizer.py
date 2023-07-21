@@ -37,7 +37,7 @@ class HumanVisualizer(BaseVisualizer):
         print(f'Age: {self.human.age}')
 
     def display_inventory(self):
-        print(f'Available Money: {self.human.money}')
+        print(f'Available Money: {round(self.human.money, 2)}')
         match self.display_level:
             case 1:
                 print(f'Inventory size: {len(self.human.inventory)}')

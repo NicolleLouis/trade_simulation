@@ -11,6 +11,7 @@
   - Money
   - Profile
   - Inventory
+- Add an option to display jobs/job for the hero/human
 - Have an export function that transform a world into it's config file
 - Have an import function that take a single config file and generate the whole game
 
@@ -23,7 +24,6 @@
 
 # Content
 - Object that can be destroyed (Food goes wasted for example)
-- Cook can burn their fish
 - Add Thief
   - Change the amount of money stolen depending on the level?
   - Or steal objects at first and money after a certain level?

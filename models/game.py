@@ -29,12 +29,12 @@ class Game:
         self.world.add_hero(hero)
 
     def add_humans(self):
-        # for _ in range(10):
-        #     self.add_human([Fisherman])
-        #     self.add_human([Fisherman])
-        #     self.add_human([Fisherman])
-        #     self.add_human([Chef])
-        #     self.add_human([Gatherer])
+        for _ in range(10):
+            self.add_human([Fisherman])
+            self.add_human([Fisherman])
+            self.add_human([Fisherman])
+            self.add_human([Chef])
+            # self.add_human([Gatherer])
         pass
 
     def add_human(self, jobs):
