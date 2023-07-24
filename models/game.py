@@ -5,6 +5,7 @@ from models.human import Human
 from models.job.chef import Chef
 from models.job.fisherman import Fisherman
 from models.job.gatherer import Gatherer
+from models.job.thief import Thief
 from models.world import World
 from service.game.graph import GameGraphService
 
@@ -22,10 +23,10 @@ class Game:
 
     def display_final_state(self):
         self.world.visualizer.display(2)
-        self.world.market.visualizer.display(2)
+        self.world.market.visualizer.display(0)
 
     def add_hero(self):
-        hero = self.random_human([Chef, Fisherman], 0)
+        hero = self.random_human([Thief], 0)
         self.world.add_hero(hero)
 
     def add_humans(self):
@@ -34,6 +35,7 @@ class Game:
             self.add_human([Fisherman])
             self.add_human([Fisherman])
             self.add_human([Chef])
+            self.add_human([Thief])
             # self.add_human([Gatherer])
         pass
 

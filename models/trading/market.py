@@ -19,7 +19,7 @@ class Market:
         if not self.is_trade_valid(offer, buyer):
             raise BaseException("Illegal purchase")
 
-        self.remove_from_offer_book(offer, buyer)
+        self.remove_from_offer_book(offer)
         self.transfer_item(offer, buyer)
         self.transfer_money(offer, buyer)
         self.add_to_trade_book(offer, is_accepted=True)

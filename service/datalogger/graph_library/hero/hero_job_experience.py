@@ -3,7 +3,7 @@ from service.datalogger.logic.graph import Graph
 
 
 class HeroJobExperience(Graph):
-    TITLE = "Hero Money while alive"
+    TITLE = "Hero Experience"
     X_LABEL = "Days"
     Y_LABEL = "Money"
     FILE_ADDRESS = "hero_job_experience"
