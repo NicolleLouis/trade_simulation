@@ -1,5 +1,3 @@
-import pdb
-
 from service.game.save import GameSaveService
 
 SAVE_NAME = "fisher-cook-exploration"

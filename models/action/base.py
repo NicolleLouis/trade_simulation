@@ -24,12 +24,14 @@ class BaseAction(ABC):
             if self.display_level > 0:
                 print(f"{self.job.human}: {self} failed")
 
-    def describe(self):
-        match self.display_level:
+    def describe(self, display_level=None):
+        if display_level is None:
+            display_level = self.display_level
+        match display_level:
             case 1:
-                self.describe_lite()
+                return [self.NAME, self.describe_lite()]
             case 2:
-                self.describe_full()
+                return [self.NAME, self.describe_full()]
 
     @abstractmethod
     def expected_happiness(self):

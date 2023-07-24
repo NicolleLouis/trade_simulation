@@ -1,7 +1,7 @@
-from service.graph.logic.datalogger import DataLogger
+from service.datalogger.logic.graph import Graph
 
 
-class Item(DataLogger):
+class Item(Graph):
     TITLE = "Item"
     X_LABEL = "Days"
     Y_LABEL = "Item Number"

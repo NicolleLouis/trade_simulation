@@ -58,7 +58,6 @@ class Human:
         self.stomach_level -= 1
 
         # Market Morning
-        self.money = self.money
         self.market_service.buy()
 
         # Active Action

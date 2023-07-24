@@ -1,7 +1,7 @@
-from service.graph.logic.datalogger import DataLogger
+from service.datalogger.logic.graph import Graph
 
 
-class WorldPopulation(DataLogger):
+class WorldPopulation(Graph):
     TITLE = "World Population"
     X_LABEL = "Days"
     Y_LABEL = "Human Number"

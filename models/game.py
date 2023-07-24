@@ -25,7 +25,7 @@ class Game:
         self.world.market.visualizer.display(2)
 
     def add_hero(self):
-        hero = self.random_human([Chef, Fisherman], 2)
+        hero = self.random_human([Chef, Fisherman], 0)
         self.world.add_hero(hero)
 
     def add_humans(self):

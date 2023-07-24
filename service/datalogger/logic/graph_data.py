@@ -1,4 +1,4 @@
-from service.graph.logic.plot_data import PlotData
+from service.datalogger.logic.plot_data import PlotData
 
 
 class GraphData:

@@ -25,14 +25,16 @@ class Eat(BaseAction):
 
     def describe_lite(self):
         stomach_gain = self.human.stomach_level - self.initial_stomach_level
-        print(f'{len(self.food_eaten)} for {stomach_gain}')
+        return f'{len(self.food_eaten)} for {stomach_gain}'
 
     def describe_full(self):
+        description = []
         food_eaten_description = ", ".join([str(food) for food in self.food_eaten])
-        print(f"Meal list: {food_eaten_description}")
-        print(f"Food level went from {self.initial_stomach_level} to {self.human.stomach_level}")
+        description.append(f"Meal list: {food_eaten_description}")
+        description.append(f"Food level went from {self.initial_stomach_level} to {self.human.stomach_level}")
         if self.has_eaten_suboptimally:
-            print("This consumption was suboptimal")
+            description.append("This consumption was suboptimal")
+        return description
 
     def clean_data(self):
         self.owned_food = None

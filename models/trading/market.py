@@ -1,4 +1,3 @@
-from models.trading.trade import Trade
 from models.trading.trade_book import TradeBook
 from service.visualizer.market_visualizer import MarketVisualizer
 
@@ -48,7 +47,7 @@ class Market:
         else:
             self.offer_book[offer.item.__class__].append(offer)
 
-    def remove_from_offer_book(self, offer, buyer):
+    def remove_from_offer_book(self, offer):
         self.offer_book[offer.item.__class__].remove(offer)
 
     def clean_data(self):

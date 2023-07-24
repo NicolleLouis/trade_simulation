@@ -1,24 +1,23 @@
 from abc import ABC, abstractmethod
 
-from service.graph.logic.graph_data import GraphData
-from service.graph.logic.plot_service import PlotService
+from service.datalogger.logic.datalogger import Datalogger
+from service.datalogger.logic.graph_data import GraphData
+from service.datalogger.logic.plot_service import PlotService
 
 
-class DataLogger(ABC):
+class Graph(Datalogger, ABC):
     TITLE = None
     X_LABEL = None
     Y_LABEL = None
     FILE_ADDRESS = None
 
     def __init__(self, game):
-        self.sanitize()
+        super().__init__(game)
         self.graph_data = GraphData(
             title=self.TITLE,
             x_label=self.X_LABEL,
             y_label=self.Y_LABEL,
         )
-        self.game = game
-        self.world = game.world
 
     def sanitize(self):
         if self.TITLE is None:
@@ -31,7 +30,7 @@ class DataLogger(ABC):
             raise BaseException("FILE_ADDRESS not implemented")
 
     def file_address(self):
-        return f"graph/{self.FILE_ADDRESS}.png"
+        return f"datalog/graph/{self.FILE_ADDRESS}.png"
 
     def display(self):
         self.hook_pre_save()

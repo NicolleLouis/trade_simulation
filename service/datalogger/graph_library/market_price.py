@@ -1,8 +1,8 @@
 
-from service.graph.logic.datalogger import DataLogger
+from service.datalogger.logic.graph import Graph
 
 
-class MarketPrice(DataLogger):
+class MarketPrice(Graph):
     TITLE = "Average Running Market Price"
     X_LABEL = "Days"
     Y_LABEL = "Price"

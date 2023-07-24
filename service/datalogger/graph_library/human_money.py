@@ -1,15 +1,15 @@
-from service.graph.logic.datalogger import DataLogger
+from service.datalogger.logic.graph import Graph
 
 
-class HumanMoney(DataLogger):
+class HumanMoney(Graph):
     TITLE = "Human Money"
     X_LABEL = "Days"
     Y_LABEL = "Money"
     FILE_ADDRESS = "human_money"
 
     # hide_dead: Remove all dead human from the graph
-    # only_richest: if None, do nothing, else display only n richest human
-    # only_poorest: if None, do nothing, else display only n poorest human
+    # only_richest: if None, do nothing, else display only the n richest human
+    # only_poorest: if None, do nothing, else display only the n poorest human
     def __init__(
             self,
             game,
@@ -70,10 +70,7 @@ class HumanMoney(DataLogger):
             for human in poorest_humans:
                 non_filtered_human.append(human.name)
 
-        all_human_name = list(map(
-            lambda human: human.name,
-            self.world.humans
-        ))
+        all_human_name = [human.name for human in self.game.world.humans]
         filtered_name = set(all_human_name) - set(non_filtered_human)
         for name in filtered_name:
             self.graph_data.remove_plot_data(name)

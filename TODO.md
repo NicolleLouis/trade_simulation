@@ -1,6 +1,8 @@
-# Graphs
+# DataLog
+- Add a raw logger coming from everywhere in code.
 
 # Engine improvement
+- Add a food_target_level to try and stockpile a little bit more food. To avoid death by food going stale and no backup
 - Inside the ProfileService replace the money need random value by a true computation
 
 # Code improvement
@@ -16,6 +18,8 @@
 - Have an import function that take a single config file and generate the whole game
 
 # Analysis - Behaviour
+- Write a chapter on the impact of item destruction (No price impact directly but job repartition + item repartition
+(duh) and death rate more steady)
 - Compare the profile money to guess what's the best option.
 
 # Perf improvement

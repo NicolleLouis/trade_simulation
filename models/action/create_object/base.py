@@ -31,11 +31,9 @@ class BaseCreateObjectAction(BaseAction):
 
     def describe_lite(self):
         if self.object_created:
-            print(f"Created {str(self.OBJECT())}")
+            return f"Created {str(self.OBJECT())}"
 
     def describe_full(self):
         if not self.object_created:
-            print("Nothing created")
-            return
-
-        print(f"Object created, probability was: {self.probability()}")
+            return "Nothing created"
+        return f"Object created, probability was: {self.probability()}"

@@ -15,7 +15,7 @@ class Idle(BaseAction):
         pass
 
     def describe_full(self):
-        print(f"{str(self.job.human)} is peace chilling")
+        return f"{str(self.job.human)} is peace chilling"
 
     def expected_happiness(self):
         return 1

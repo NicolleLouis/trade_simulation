@@ -1,8 +1,8 @@
 
-from service.graph.logic.datalogger import DataLogger
+from service.datalogger.logic.graph import Graph
 
 
-class HeroMoney(DataLogger):
+class HeroMoney(Graph):
     TITLE = "Hero Money while alive"
     X_LABEL = "Days"
     Y_LABEL = "Money"

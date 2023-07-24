@@ -66,12 +66,12 @@ class Cook(BaseAction):
 
     def describe_lite(self):
         if self.fish_cooked:
-            print("Cooked a fish")
+            return "Cooked a fish"
         if self.fish_burned:
-            print("Burned a fish")
+            return "Burned a fish"
 
     def describe_full(self):
         if self.fish_cooked:
-            print(f"Cooked a fish, proba was: {self.probability()}")
+            return f"Cooked a fish, proba was: {self.probability()}"
         elif self.fish_burned:
-            print(f"Burned a fish, proba was: {self.failure_probability()}")
+            return f"Burned a fish, proba was: {self.failure_probability()}"

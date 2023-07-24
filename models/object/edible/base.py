@@ -8,7 +8,7 @@ class BaseEdible(BaseObject, ABC):
     EDIBLE = True
     FOOD_RETURN = 0
     DESTROYABLE = True
-    DESTROY_PROBABILITY = 2.5
+    DESTROY_PROBABILITY = 1
 
     def __init__(self):
         super().__init__()
