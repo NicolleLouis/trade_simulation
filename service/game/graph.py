@@ -5,6 +5,8 @@ from service.datalogger.graph_library.market_price import MarketPrice
 from service.datalogger.graph_library.world_population.world_population import WorldPopulation
 from service.datalogger.graph_library.world_population.world_population_job import WorldPopulationJob
 from service.datalogger.graph_library.world_population.world_population_profile import WorldPopulationProfile
+from service.datalogger.graph_library.world_population.world_population_sentimental_status import \
+    WorldPopulationSentimentalStatus
 from service.datalogger.text_library.hero_actions import HeroAction
 
 
@@ -19,6 +21,7 @@ class GameGraphService:
         self.add_datalogger(WorldPopulation(self.game))
         self.add_datalogger(MarketPrice(self.game))
         self.add_datalogger(WorldPopulationProfile(self.game))
+        self.add_datalogger(WorldPopulationSentimentalStatus(self.game))
         self.add_datalogger(WorldPopulationJob(self.game))
         self.add_datalogger(Item(self.game))
         self.add_datalogger(HeroMoney(self.game))

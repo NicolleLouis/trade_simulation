@@ -1,6 +1,7 @@
 import random
 
 from constants.profile_type import ProfileType
+from models.human.sentimental_life import SentimentalLife
 from models.job.basic import Basic
 from service.human import HumanService
 from service.market.market import MarketService
@@ -27,6 +28,7 @@ class Human:
         self.world = world
 
         self.name = HumanService.random_name()
+        self.is_male = bool(random.getrandbits(1))
         self.age = 0
         self.dead = False
 
@@ -37,6 +39,9 @@ class Human:
         self.profile = profile
         self.inventory = inventory
 
+        self.sentimental_life = SentimentalLife(
+            human=self
+        )
         self.market_service = MarketService(
             market=self.world.market,
             human=self,
@@ -73,10 +78,14 @@ class Human:
 
         # Death
         if self.should_die():
-            self.dead = True
+            self.death()
 
         # Display
         self.visualizer.display()
+
+    def death(self):
+        self.dead = True
+        self.sentimental_life.death()
 
     def add_jobs(self, jobs):
         for job in self.BASE_JOB:
@@ -86,12 +95,12 @@ class Human:
 
     def add_job(self, job):
         if len(
-            list(
-                filter(
-                    lambda known_job: known_job.__class__ == job.__class__,
-                    self.jobs
+                list(
+                    filter(
+                        lambda known_job: known_job.__class__ == job.__class__,
+                        self.jobs
+                    )
                 )
-            )
         ) == 0:
             self.jobs.append(job)
 
@@ -101,7 +110,7 @@ class Human:
     def compute_happiness(self):
         self.happiness = 0
         self.happiness += self.money
-        self.happiness += 10*self.stomach_level
+        self.happiness += 10 * self.stomach_level
         for item in self.inventory:
             if item.utility(self) is not None:
                 self.happiness += item.utility(self)

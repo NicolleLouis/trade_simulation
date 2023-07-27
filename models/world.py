@@ -2,6 +2,7 @@ import random
 
 from models.trading.market import Market
 from service.visualizer.world_visualizer import WorldVisualizer
+from service.wedding import WeddingService
 
 
 class World:
@@ -11,6 +12,7 @@ class World:
         self.hero = None
         self.humans = []
         self.market = Market(self)
+        self.wedding_service = WeddingService(self)
         self.dead_humans = []
         self.visualizer = WorldVisualizer(self, display_level)
 
@@ -27,10 +29,7 @@ class World:
             self.humans
         )
         self.dead_humans.extend(new_dead)
-        self.humans = list(filter(
-            lambda human: not human.dead,
-            self.humans,
-        ))
+        self.humans = [human for human in self.humans if not human.dead]
 
     def run_day(self):
         self.visualizer.display()
@@ -40,5 +39,6 @@ class World:
         for human in self.humans:
             human.run_day()
 
+        self.wedding_service.run()
         self.market.clean_data()
         self.update_dead()

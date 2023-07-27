@@ -1,7 +1,7 @@
 import random
 
 from constants.profile_type import ProfileType
-from models.human import Human
+from models.human.human import Human
 from models.job.chef import Chef
 from models.job.fisherman import Fisherman
 from models.job.gatherer import Gatherer
@@ -35,8 +35,8 @@ class Game:
             self.add_human([Fisherman])
             self.add_human([Fisherman])
             self.add_human([Chef])
-            self.add_human([Thief])
-            # self.add_human([Gatherer])
+            # self.add_human([Thief])
+            self.add_human([Gatherer])
         pass
 
     def add_human(self, jobs):

@@ -1,7 +1,12 @@
 # DataLog
-- Add a raw logger coming from everywhere in code.
+- Graph filtré sur les enfants? 
+- Nombre de couple
+- Nombre d'enfants vivant
+- Nombre de veufs
+- Add a raw logger coming from everywhere in code. (Classic logging)
 
 # Engine improvement
+- __Job utility is dependent on object average market value if possible instead of intrinsic value__
 - Add a food_target_level to try and stockpile a little bit more food. To avoid death by food going stale and no backup
 For this we need to compute every beginning of turn the amount of food owned + stomach level then compare it to an expected amount
 - Inside the ProfileService replace the money need random value by a true computation
@@ -28,6 +33,12 @@ For this we need to compute every beginning of turn the amount of food owned + s
 - Other solution is to store the trade event into a compacted form day by day. And after 60 day, sum into the big one?
 
 # Content
+- World Events (Event Base Class) vs Human Event
+- Death of old age
+- Croquemort
+- Garden + Gardener with passive income (Active action to improve garden)
+- Event: récolte abondante
+- Event: perte des stocks de nourriture
 - Add another cooking option: Apple -> Apple Pie (Both edible but giving way more in the second case)
 - Add another cooking option: Multiple ingredients
 - Add couple and children (human number might skyrocket? Maybe more death, ageing?). Transmit money and random job? 
