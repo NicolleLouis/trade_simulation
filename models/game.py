@@ -1,13 +1,10 @@
-import random
-
-from constants.profile_type import ProfileType
-from models.human.human import Human
 from models.job.chef import Chef
 from models.job.fisherman import Fisherman
 from models.job.gatherer import Gatherer
 from models.job.thief import Thief
 from models.world import World
 from service.game.graph import GameGraphService
+from service.human_creation import HumanCreationService
 
 
 class Game:
@@ -26,7 +23,11 @@ class Game:
         self.world.market.visualizer.display(0)
 
     def add_hero(self):
-        hero = self.random_human([Thief], 0)
+        hero = HumanCreationService(
+            jobs=[Thief],
+            world=self.world,
+            display_level=0
+        ).human
         self.world.add_hero(hero)
 
     def add_humans(self):
@@ -40,20 +41,11 @@ class Game:
         pass
 
     def add_human(self, jobs):
-        self.world.add_human(self.random_human(jobs))
-
-    def random_human(self, jobs, display_level=0):
-        profile = random.choice(
-            [ProfileType.CAREFUL,
-             ProfileType.NORMAL,
-             ProfileType.ADVENTUROUS]
-        )
-        return Human(
+        human = HumanCreationService(
             jobs=jobs,
             world=self.world,
-            display_level=display_level,
-            profile=profile,
-        )
+        ).human
+        self.world.add_human(human)
 
     def run(self, day_number=None):
         if day_number is None:

@@ -1,8 +1,4 @@
 # DataLog
-- Graph filtré sur les enfants? 
-- Nombre de couple
-- Nombre d'enfants vivant
-- Nombre de veufs
 - Add a raw logger coming from everywhere in code. (Classic logging)
 
 # Engine improvement
@@ -13,13 +9,6 @@ For this we need to compute every beginning of turn the amount of food owned + s
 
 # Code improvement
 - Add a config on top of the game to start game by config and avoid mixing things (Human + Hero)
-- Add a Hero config to have a lot of option to customize the hero
-- Create a service to generate human nicely (Lot of options -> payload -> list of humans or one if hero)
-  - Jobs (Optional experience)
-  - Money
-  - Profile
-  - Inventory
-- Add an option to display jobs/job for the hero/human
 - Have an export function that transform a world into it's config file
 - Have an import function that take a single config file and generate the whole game
 

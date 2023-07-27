@@ -1,6 +1,5 @@
 import random
 
-from constants.profile_type import ProfileType
 from models.human.sentimental_life import SentimentalLife
 from models.job.basic import Basic
 from service.human import HumanService
@@ -12,32 +11,21 @@ class Human:
     def __init__(
             self,
             world,
-            money=300,
-            stomach_level=30,
-            happiness=0,
-            inventory=None,
-            jobs=None,
-            profile=ProfileType.NORMAL,
-            display_level=0
     ):
-        if jobs is None:
-            jobs = []
-        if inventory is None:
-            inventory = []
-
         self.world = world
+        self.display_level = 0
 
         self.name = HumanService.random_name()
         self.is_male = bool(random.getrandbits(1))
         self.age = 0
         self.dead = False
 
-        self.money = money
-        self.stomach_level = stomach_level
-        self.happiness = happiness
-        self.jobs = []
-        self.profile = profile
-        self.inventory = inventory
+        self.money = 300
+        self.inventory = []
+        self.stomach_level = 30
+        self.happiness = 0
+        self.jobs = [job(self) for job in self.BASE_JOB]
+        self.profile = None
 
         self.sentimental_life = SentimentalLife(
             human=self
@@ -47,11 +35,8 @@ class Human:
             human=self,
         )
 
-        self.display_level = display_level
         self.last_action = None
         self.visualizer = HumanVisualizer(self)
-
-        self.add_jobs(jobs)
 
     MAXIMUM_STOMACH_LEVEL = 30
     BASE_JOB = [Basic]
@@ -61,6 +46,9 @@ class Human:
         self.happiness = 0
         self.age += 1
         self.stomach_level -= 1
+
+        # Events
+        self.run_events()
 
         # Market Morning
         self.market_service.buy()
@@ -83,15 +71,14 @@ class Human:
         # Display
         self.visualizer.display()
 
+    def run_events(self):
+        if self.sentimental_life.events is not None:
+            for event in self.sentimental_life.events:
+                event.run()
+
     def death(self):
         self.dead = True
         self.sentimental_life.death()
-
-    def add_jobs(self, jobs):
-        for job in self.BASE_JOB:
-            self.jobs.append(job(self))
-        for job in jobs:
-            self.jobs.append(job(self))
 
     def add_job(self, job):
         if len(
@@ -145,14 +132,14 @@ class Human:
         return happiness
 
     def copy(self):
-        return Human(
+        from service.human_creation import HumanCreationService
+
+        return HumanCreationService(
             money=self.money,
             stomach_level=self.stomach_level,
-            happiness=self.happiness,
-            inventory=self.inventory.copy(),
-            profile=self.profile,
+            inventory=self.inventory,
             world=self.world,
-        )
+        ).human
 
     def gain_item(self, item):
         self.inventory.append(item)
