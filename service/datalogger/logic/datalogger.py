@@ -36,6 +36,10 @@ class Datalogger(ABC):
     def fetch_data(self):
         raise NotImplementedError
 
+    @abstractmethod
+    def reset_data(self):
+        raise NotImplementedError
+
     # Hook called before saving/displaying the graph, useful to filter some dataset for example
     def hook_pre_save(self):
         pass

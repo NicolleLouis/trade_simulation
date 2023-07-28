@@ -18,3 +18,6 @@ class GraphData:
 
     def remove_plot_data(self, label):
         self.dataset.pop(label, None)
+
+    def reset_data(self):
+        self.dataset = {}

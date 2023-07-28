@@ -55,6 +55,9 @@ class Graph(Datalogger, ABC):
     def fetch_data(self):
         raise NotImplementedError
 
+    def reset_data(self):
+        self.graph_data.reset_data()
+
     # Hook called before saving/displaying the graph, useful to filter some dataset for example
     def hook_pre_save(self):
         pass

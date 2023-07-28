@@ -1,5 +1,6 @@
 # DataLog
 - Add a raw logger coming from everywhere in code. (Classic logging)
+- Event Logger
 
 # Engine improvement
 - __Job utility is dependent on object average market value if possible instead of intrinsic value__
@@ -33,3 +34,4 @@ For this we need to compute every beginning of turn the amount of food owned + s
 - Add couple and children (human number might skyrocket? Maybe more death, ageing?). Transmit money and random job? 
 - Add landlord and land renting to fish or gather or cook
 - Teacher to give people experience? Hard to price
+- Family name to track family across ages (Graph number of family member)
