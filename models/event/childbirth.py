@@ -1,4 +1,3 @@
-import pdb
 import random
 from typing import List
 
@@ -8,7 +7,7 @@ from models.event.base import Event
 
 class Childbirth(Event):
     NAME = "Childbirth"
-    BASE_PROBA = 0.1
+    BASE_PROBA = 10
     COOLDOWN = 100
 
     def __init__(self, sentimental_life):

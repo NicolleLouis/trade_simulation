@@ -1,3 +1,5 @@
+from models.event.thief_attraction import ThiefAttraction
+from models.event.wedding import Wedding
 from models.job.chef import Chef
 from models.job.fisherman import Fisherman
 from models.job.gatherer import Gatherer
@@ -17,35 +19,7 @@ class Game:
         self.add_humans()
         self.add_hero()
         self.graph_service = GameGraphService(self)
-
-    def display_final_state(self):
-        self.world.visualizer.display(2)
-        self.world.market.visualizer.display(0)
-
-    def add_hero(self):
-        hero = HumanCreationService(
-            jobs=[Thief],
-            world=self.world,
-            display_level=0
-        ).human
-        self.world.add_hero(hero)
-
-    def add_humans(self):
-        for _ in range(10):
-            self.add_human([Fisherman])
-            self.add_human([Fisherman])
-            self.add_human([Fisherman])
-            self.add_human([Chef])
-            # self.add_human([Thief])
-            self.add_human([Gatherer])
-        pass
-
-    def add_human(self, jobs):
-        human = HumanCreationService(
-            jobs=jobs,
-            world=self.world,
-        ).human
-        self.world.add_human(human)
+        self.add_world_events()
 
     def run(self, day_number=None):
         if day_number is None:
@@ -58,3 +32,39 @@ class Game:
     def run_day(self):
         self.world.run_day()
         self.graph_service.fetch_data()
+
+    def display_final_state(self):
+        self.world.visualizer.display(2)
+        self.world.market.visualizer.display(0)
+
+    def add_hero(self):
+        hero = HumanCreationService(
+            jobs=[Fisherman, Chef, Gatherer],
+            world=self.world,
+            display_level=0
+        ).human
+        self.world.add_hero(hero)
+
+    def add_humans(self):
+        for _ in range(10):
+            self.add_human([Fisherman])
+            self.add_human([Fisherman])
+            self.add_human([Fisherman])
+            self.add_human([Chef])
+            self.add_human([Gatherer])
+        pass
+
+    def add_human(self, jobs):
+        human = HumanCreationService(
+            jobs=jobs,
+            world=self.world,
+        ).human
+        self.world.add_human(human)
+
+    def add_world_events(self):
+        events = [
+            Wedding(self.world),
+            ThiefAttraction(self.world),
+        ]
+        for event in events:
+            self.world.add_event(event)

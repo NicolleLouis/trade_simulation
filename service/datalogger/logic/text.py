@@ -6,6 +6,7 @@ from service.datalogger.logic.datalogger import Datalogger
 class Text(Datalogger, ABC):
     TITLE = None
     FILE_ADDRESS = None
+    DISPLAY_ALL_DAY = True
 
     def __init__(self, game):
         super().__init__(game)
@@ -27,8 +28,9 @@ class Text(Datalogger, ABC):
         file.close()
 
     def add_day_infos(self):
-        self.messages.append("###")
-        self.messages.append(f'Day: {self.day()}')
+        if self.DISPLAY_ALL_DAY:
+            self.messages.append("###")
+            self.messages.append(f'Day: {self.day()}')
 
     def add_input(self, inputs):
         if inputs is None:

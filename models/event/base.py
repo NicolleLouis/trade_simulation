@@ -5,11 +5,12 @@ from abc import ABC, abstractmethod
 class Event(ABC):
     NAME = None
     COOLDOWN = None
-    BASE_PROBA = None
+    BASE_PROBA = None  # In %
 
-    def __init__(self):
+    def __init__(self, datalogger=None):
         self.sanitize()
         self.time_since_activation = 0
+        self.datalogger = datalogger
 
     @abstractmethod
     def activation_condition(self):
@@ -25,13 +26,22 @@ class Event(ABC):
             return False
         elif not self.activation_condition():
             return False
-        elif not random.random() < self.BASE_PROBA:
+        elif not random.random() < self.BASE_PROBA / 100:
             return False
 
         # Case everything is valid
         self.time_since_activation = 0
         self.activation()
+        self.log()
         return True
+
+    def log(self):
+        if self.datalogger is None:
+            return
+        self.datalogger.add_point(self.describe())
+
+    def describe(self):
+        return self.NAME
 
     def sanitize(self):
         if self.NAME is None:

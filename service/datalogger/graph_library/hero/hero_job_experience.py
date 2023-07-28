@@ -8,17 +8,17 @@ class HeroJobExperience(Graph):
     Y_LABEL = "Money"
     FILE_ADDRESS = "hero_job_experience"
 
-    def __init__(self, game):
-        super().__init__(game)
-        self.hero = self.world.hero
+    def hero(self):
+        return self.world.hero
 
     def should_be_deleted(self):
         return self.game.world.hero is None
 
     def fetch_data(self):
-        if self.hero.dead:
+        hero = self.hero()
+        if hero.dead:
             return
-        for job in self.hero.jobs:
+        for job in hero.jobs:
             job_name = job.NAME
             if job_name == "BASIC":
                 continue
